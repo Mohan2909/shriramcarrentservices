@@ -17,12 +17,8 @@ export function UserCityBanner() {
 
   const matchedLocation = useMemo(() => {
     const normalizedCity = normalizeCityName(city);
-
     return locations.find((location) => {
-      if (normalizeCityName(location.name) === normalizedCity) {
-        return true;
-      }
-
+      if (normalizeCityName(location.name) === normalizedCity) return true;
       return location.nearby.some((nearby) => normalizeCityName(nearby) === normalizedCity);
     });
   }, [city]);
@@ -43,24 +39,21 @@ export function UserCityBanner() {
         setCity(nextCity);
         window.localStorage.setItem("shriram-city", nextCity);
       })
-      .catch(() => {
-        setCity(DEFAULT_CITY);
-      });
+      .catch(() => setCity(DEFAULT_CITY));
 
     return () => controller.abort();
   }, []);
 
   return (
-    <div className="row-scroll inline-flex max-w-full items-center gap-3 rounded-[1.35rem] border border-white/50 bg-white/85 px-4 py-3 text-ink shadow-soft backdrop-blur sm:px-5">
-      <div className="flex min-w-0 items-center gap-2 text-sm font-semibold">
+    <div className="flex max-w-full flex-wrap items-center gap-3 rounded-[1.35rem] border border-white/50 bg-white/85 px-4 py-3 text-ink shadow-soft backdrop-blur sm:px-5">
+      <div className="flex min-w-0 flex-1 items-center gap-2 text-sm font-semibold">
         <MapPin className="h-4 w-4 shrink-0 text-brand-500" />
-        <span className="whitespace-nowrap">Cab Service in {city}</span>
+        <span className="truncate">Cab Service in {city}</span>
       </div>
-
       {matchedLocation ? (
         <Link
           href={`/${matchedLocation.route}`}
-          className="inline-flex shrink-0 items-center justify-center rounded-full bg-ink px-4 py-2 text-sm font-semibold whitespace-nowrap text-white transition hover:bg-zinc-800"
+          className="inline-flex shrink-0 items-center justify-center rounded-full bg-ink px-3 py-2 text-xs font-semibold text-white transition hover:bg-zinc-800 sm:px-4 sm:text-sm"
         >
           View rides in {matchedLocation.name}
         </Link>

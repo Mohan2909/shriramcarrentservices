@@ -4,31 +4,75 @@ export function getLocationByRoute(route: string) {
   return locations.find((location) => location.route === route);
 }
 
-export function getLocationParagraphs(location: LocationEntry) {
+/** H1 text for the location page */
+export function getLocationH1(location: LocationEntry) {
+  return `Best Cab Service in ${location.name}, Pune`;
+}
+
+/** SEO title — used in generateMetadata */
+export function getLocationSeoTitle(location: LocationEntry) {
+  return `Cab Service in ${location.name} | Car Rental Pune | Shriram Tour & Travels`;
+}
+
+/** Meta description — used in generateMetadata */
+export function getLocationMetaDescription(location: LocationEntry) {
+  const areaType = location.areaType ? ` ${location.areaType}` : "";
+  return `Looking for cab service near me in ${location.name}? Shriram Tour & Travels covers this${areaType} with airport transfers, outstation cabs, and local rides. Book on WhatsApp — available 24/7.`;
+}
+
+/** H2 section headings with location-specific copy */
+export function getLocationSections(location: LocationEntry) {
   const nearby = location.nearby.join(", ");
+  const areaType = location.areaType ?? "area";
 
   return [
-    `Shriram Tour & Travels offers dependable cab service in ${location.name} for airport pickups, business meetings, family outings, weekend trips, and daily intercity travel. If you are searching for cab service in ${location.name} that feels punctual, premium, and easy to book, our team is built for exactly that requirement. We handle one-way rides, round trips, local city drops, and outstation journeys with clean vehicles and verified drivers who understand Pune traffic patterns and peak-hour timing. Customers booking a taxi in ${location.name} usually want quick confirmations, transparent pricing, and flexible travel options, so our booking process is designed to stay simple on mobile and fast on WhatsApp.`,
-    `${location.name} connects smoothly with ${nearby}, which makes it an important pickup zone for residents, IT professionals, students, and corporate teams. Our cab service in ${location.name} covers early-morning airport transfers, same-day return travel, railway station pickups, and custom plans for events or site visits. Whether you need a Swift Dzire for a budget-friendly commute, an Ertiga for family travel, or an Innova Crysta for a more executive ride, we match the car to your route and passenger count. This makes our taxi in ${location.name} suitable for both short-distance city travel and high-comfort intercity bookings across Maharashtra.`,
-    `Many riders from ${location.name} choose us because our drivers focus on punctual arrival, route familiarity, and polite communication. We monitor travel needs across Pune and nearby hubs so that a cab service in ${location.name} remains available for common routes like airport transfers, Hinjewadi office drops, Baner meetings, and weekend departures toward Lonavala, Mumbai, Nashik, Kolhapur, or Shirdi. If you need a taxi in ${location.name} for one passenger, a family, or a small group, our fleet range helps keep the trip practical without compromising on comfort.`,
-    `Customers often search with high-intent phrases such as cab service in ${location.name}, taxi in ${location.name}, airport cab in ${location.name}, or outstation taxi from ${location.name}. This page is built to answer those searches with useful booking information, route relevance, and direct contact options. Our team serves residential complexes, office parks, commercial streets, and nearby landmarks around ${location.name}, so you can book confidently even for early departures or late-night arrivals.`,
-    `For the fastest response, use the booking form or message us on WhatsApp with your pickup point, drop location, travel date, and car preference. Shriram Tour & Travels keeps cab service in ${location.name} focused on comfort, consistency, and real customer support. If your trip starts in ${location.name} and ends anywhere in Pune or beyond, we are ready with a flexible taxi in ${location.name} that fits your timing and budget.`
+    {
+      heading: `Cab Service in ${location.name} — Local, Airport & Outstation`,
+      body: `Shriram Tour & Travels provides reliable cab service in ${location.name} for airport pickups, business meetings, family outings, weekend trips, and daily intercity travel. If you are searching for a cab near me in ${location.name}, our team is available 24/7 with clean vehicles, verified drivers, and instant WhatsApp confirmation. We handle one-way rides, round trips, local city drops, and outstation journeys across Maharashtra — all from this ${areaType}.`,
+    },
+    {
+      heading: `Car Rental in ${location.name} — Sedan, SUV & MPV Options`,
+      body: `${location.name} connects smoothly with ${nearby}, making it a key pickup zone for residents, IT professionals, students, and corporate teams. Our car rental in ${location.name} covers Swift Dzire and Hyundai Aura for budget-friendly commutes, Ertiga and Kia Carens for family travel, and Innova Crysta for executive or group bookings. Every vehicle is well-maintained, air-conditioned, and matched to your passenger count and route.`,
+    },
+    {
+      heading: `Why Customers Choose Our Taxi in ${location.name}`,
+      body: `Riders from ${location.name} choose us for punctual arrivals, route familiarity, and polite communication. Our taxi in ${location.name} covers common routes like Pune Airport transfers, Hinjewadi office drops, Baner meetings, and weekend departures toward Lonavala, Mumbai, Nashik, Kolhapur, or Shirdi. Whether you need a cab for one passenger, a family, or a small group, our fleet keeps the trip practical without compromising comfort.`,
+    },
+    {
+      heading: `Book a Cab Near Me in ${location.name} — Fast WhatsApp Booking`,
+      body: `Customers searching for cab near me in ${location.name} or car rental near me in Pune can book directly via WhatsApp or the booking form. Share your pickup point in ${location.name}, drop location, travel date, and car preference — and we confirm within minutes. We serve residential complexes, office parks, commercial streets, and landmarks around ${location.name} for early departures and late-night arrivals alike.`,
+    },
   ];
 }
 
+/** Legacy paragraph array — kept for backward compatibility */
+export function getLocationParagraphs(location: LocationEntry): string[] {
+  return getLocationSections(location).map((s) => `${s.heading}\n\n${s.body}`);
+}
+
 export function getLocationFaqs(location: LocationEntry) {
+  const nearby = location.nearby.join(", ");
+
   return [
     {
-      question: `Do you offer airport trips from ${location.name}?`,
-      answer: `Yes. Airport pickup and drop bookings are available from ${location.name}, including early-morning departures and late-night arrivals.`,
+      question: `Do you offer cab service near me in ${location.name}?`,
+      answer: `Yes. Shriram Tour & Travels provides cab service in ${location.name} and nearby areas including ${nearby}. You can book via WhatsApp or the online form for same-day and advance trips.`,
+    },
+    {
+      question: `Do you offer airport transfers from ${location.name}?`,
+      answer: `Yes. Airport pickup and drop bookings are available from ${location.name} for Pune Airport, including early-morning departures and late-night arrivals with on-time guaranteed service.`,
     },
     {
       question: `Can I book an outstation cab from ${location.name}?`,
-      answer: `Yes. Outstation rides from ${location.name} can be arranged for one-way travel, round trips, family tours, business visits, and weekend plans.`,
+      answer: `Yes. Outstation rides from ${location.name} are available for one-way travel, round trips, family tours, business visits, and weekend plans to Mumbai, Nashik, Shirdi, Kolhapur, and more.`,
+    },
+    {
+      question: `Which car rental options are available in ${location.name}?`,
+      answer: `We offer Swift Dzire and Hyundai Aura for solo or couple travel, Ertiga and Kia Carens for families, and Innova Crysta for groups or corporate bookings from ${location.name}.`,
     },
     {
       question: `Which nearby areas can also be covered from ${location.name}?`,
-      answer: `${location.name} bookings can also be coordinated for nearby pickup and drop zones such as ${location.nearby.join(", ")}.`,
+      answer: `${location.name} bookings can also be coordinated for nearby pickup and drop zones such as ${nearby}.`,
     },
   ];
 }

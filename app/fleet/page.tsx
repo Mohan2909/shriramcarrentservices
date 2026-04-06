@@ -57,22 +57,22 @@ export default function FleetPage() {
           <p className="mt-4 max-w-3xl text-sm leading-7 text-zinc-600 sm:text-base sm:leading-8">Choose the right cab for city travel, airport transfers, family tours, and corporate rides. Every option is positioned for comfort, luggage practicality, and route flexibility.</p>
         </SectionReveal>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {fleet.map((car, index) => (
-            <SectionReveal key={car.name} delay={index * 0.06} className="overflow-hidden rounded-[2rem] border border-zinc-200 bg-white shadow-soft">
-              <div className="relative h-56 bg-gradient-to-br from-brand-50 to-accent-50">
-                <Image src={car.image} alt={car.name} fill className="object-contain p-8" sizes="(max-width: 768px) 100vw, 33vw" />
-              </div>
-              <div className="p-6">
-                <div className="flex items-center justify-between gap-3">
-                  <h2 className="min-w-0 truncate font-display text-2xl font-semibold">{car.name}</h2>
-                  <span className="shrink-0 rounded-full bg-brand-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brand-700">{car.seats}</span>
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            {fleet.map((car, index) => (
+              <SectionReveal key={car.name} delay={index * 0.06} className="overflow-hidden rounded-[2rem] border border-zinc-200 bg-white shadow-soft">
+                <div className="relative h-56 bg-gradient-to-br from-brand-50 to-accent-50">
+                  <Image src={car.image} alt={car.name} fill className="object-contain p-8" sizes="(max-width: 768px) 80vw, 33vw" />
                 </div>
-                <p className="mt-4 text-sm leading-7 text-zinc-600">{car.blurb}</p>
-                <Link href="/booking" className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-600 sm:w-auto">Book this car</Link>
-              </div>
-            </SectionReveal>
-          ))}
+                <div className="p-6">
+                  <div className="flex items-center justify-between gap-3">
+                    <h2 className="min-w-0 truncate font-display text-2xl font-semibold">{car.name}</h2>
+                    <span className="shrink-0 rounded-full bg-brand-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brand-700">{car.seats}</span>
+                  </div>
+                  <p className="mt-4 text-sm leading-7 text-zinc-600">{car.blurb}</p>
+                  <Link href="/booking" className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-600 sm:w-auto">Book this car</Link>
+                </div>
+              </SectionReveal>
+            ))}
         </div>
       </Container>
     </section>

@@ -21,9 +21,7 @@ export default function ContactPage() {
         "@type": "ContactPage",
         name: `Contact ${SITE_NAME}`,
         url: `${SITE_URL}/contact`,
-        mainEntity: {
-          "@id": `${SITE_URL}/#organization`,
-        },
+        mainEntity: { "@id": `${SITE_URL}/#organization` },
       },
       buildBreadcrumbStructuredData([
         { name: "Home", path: "/" },
@@ -44,40 +42,45 @@ export default function ContactPage() {
     <section className="py-16 sm:py-20">
       <Container>
         <StructuredData id="contact-structured-data" data={structuredData} />
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <SectionReveal className="rounded-[2rem] border border-zinc-200 bg-white p-6 shadow-soft sm:p-8">
-            <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Contact</p>
-            <h1 className="mt-2 font-display text-3xl font-semibold sm:text-4xl">Get in touch for direct cab booking</h1>
-            <div className="mt-8 space-y-5 text-sm leading-8 text-zinc-600">
-              <div>
-                <h2 className="font-semibold text-zinc-900">Owner</h2>
-                <p>{contactDetails.ownerName}</p>
+
+        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+
+            <SectionReveal className="rounded-[2rem] border border-zinc-200 bg-white p-6 shadow-soft lg:p-8">
+              <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Contact</p>
+              <h1 className="mt-2 font-display text-2xl font-semibold sm:text-4xl">Get in touch for direct cab booking</h1>
+              <div className="mt-6 space-y-4 text-sm leading-8 text-zinc-600 sm:mt-8 sm:space-y-5">
+                <div>
+                  <h2 className="font-semibold text-zinc-900">Owner</h2>
+                  <p>{contactDetails.ownerName}</p>
+                </div>
+                <div>
+                  <h2 className="font-semibold text-zinc-900">Address</h2>
+                  <p>{contactDetails.address}</p>
+                </div>
+                {/* Contact rows — always label + value side by side */}
+                <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
+                  <h2 className="font-semibold text-zinc-900">Phone</h2>
+                  <a href={`tel:+${contactDetails.phoneRaw}`} className="text-sm transition hover:text-brand-600">{contactDetails.phoneDisplay}</a>
+                </div>
+                <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
+                  <h2 className="font-semibold text-zinc-900">Alternate Phone</h2>
+                  <a href={`tel:+${contactDetails.secondaryPhoneRaw}`} className="text-sm transition hover:text-brand-600">{contactDetails.secondaryPhoneDisplay}</a>
+                </div>
+                <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
+                  <h2 className="font-semibold text-zinc-900">WhatsApp</h2>
+                  <a href={`https://wa.me/${contactDetails.whatsappRaw}`} target="_blank" rel="noreferrer" className="text-sm transition hover:text-brand-600">Start WhatsApp Chat</a>
+                </div>
+                <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
+                  <h2 className="font-semibold text-zinc-900">Email</h2>
+                  <a href={`mailto:${contactDetails.email}`} className="break-all text-sm transition hover:text-brand-600">{contactDetails.email}</a>
+                </div>
               </div>
-              <div>
-                <h2 className="font-semibold text-zinc-900">Address</h2>
-                <p>{contactDetails.address}</p>
-              </div>
-              <div className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
-                <h2 className="font-semibold text-zinc-900">Phone</h2>
-                <a href={`tel:+${contactDetails.phoneRaw}`} className="truncate text-right transition hover:text-brand-600">{contactDetails.phoneDisplay}</a>
-              </div>
-              <div className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
-                <h2 className="font-semibold text-zinc-900">Alternate Phone</h2>
-                <a href={`tel:+${contactDetails.secondaryPhoneRaw}`} className="truncate text-right transition hover:text-brand-600">{contactDetails.secondaryPhoneDisplay}</a>
-              </div>
-              <div className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
-                <h2 className="font-semibold text-zinc-900">WhatsApp</h2>
-                <a href={`https://wa.me/${contactDetails.whatsappRaw}`} target="_blank" rel="noreferrer" className="truncate text-right transition hover:text-brand-600">Start WhatsApp Chat</a>
-              </div>
-              <div className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
-                <h2 className="font-semibold text-zinc-900">Email</h2>
-                <a href={`mailto:${contactDetails.email}`} className="truncate text-right transition hover:text-brand-600">{contactDetails.email}</a>
-              </div>
-            </div>
-          </SectionReveal>
-          <SectionReveal delay={0.08}>
-            <GoogleMap query={contactDetails.address} title="Shriram Tour & Travels address map" />
-          </SectionReveal>
+            </SectionReveal>
+
+            <SectionReveal delay={0.08}>
+              <GoogleMap query={contactDetails.address} title="Shriram Tour & Travels address map" />
+            </SectionReveal>
+
         </div>
       </Container>
     </section>

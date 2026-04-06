@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { Briefcase, MapPin, Plane, Route } from "lucide-react";
 
 import { Container } from "@/components/container";
 import { SectionReveal } from "@/components/section-reveal";
@@ -53,14 +55,22 @@ export default function ServicesPage() {
           <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Services</p>
           <h1 className="mt-2 font-display text-3xl font-semibold sm:text-4xl">Cab services designed around real travel demand</h1>
         </SectionReveal>
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {services.map((service, index) => (
-            <SectionReveal key={service.title} delay={index * 0.06} className="rounded-[2rem] border border-zinc-200 bg-white p-6 shadow-soft sm:p-8">
-              <h2 className="font-display text-2xl font-semibold sm:text-3xl">{service.title}</h2>
-              <p className="mt-4 text-sm leading-8 text-zinc-600">{service.description} Our service plans are optimized for punctuality, comfort, and quick WhatsApp-based confirmations from Pune and nearby pickup locations.</p>
-              <Link href="/booking" className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-600 sm:w-auto">Enquire Now</Link>
-            </SectionReveal>
-          ))}
+        {/* 2-col on mobile, 4-col on desktop */}
+        <div className="mt-10 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+          {services.map((service, index) => {
+            const icons = [Route, Plane, MapPin, Briefcase];
+            const Icon = icons[index % icons.length];
+            return (
+              <SectionReveal key={service.title} delay={index * 0.06} className="flex flex-col rounded-[2rem] border border-zinc-200 bg-white p-5 shadow-soft sm:p-8">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-50">
+                  <Icon className="h-8 w-8 text-brand-500" />
+                </div>
+                <h2 className="mt-4 font-display text-base font-semibold leading-snug sm:text-xl">{service.title}</h2>
+                <p className="mt-2 flex-1 text-xs leading-6 text-zinc-600 sm:text-sm sm:leading-7">{service.description}</p>
+                <Link href="/booking" className="mt-5 inline-flex items-center justify-center rounded-full bg-brand-500 px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-brand-600 sm:text-sm">Enquire Now</Link>
+              </SectionReveal>
+            );
+          })}
         </div>
       </Container>
     </section>

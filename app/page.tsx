@@ -1,17 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Clock3, Landmark, MapPinned, Plane, Route } from "lucide-react";
+import { ArrowUpRight, Briefcase, Car, MapPin, MessageCircle, Phone, ShieldCheck } from "lucide-react";
 
 import { Container } from "@/components/container";
+import { PopularRoutes } from "@/components/popular-routes";
+import { ServiceCards } from "@/components/service-cards";
 import { GalleryExperience } from "@/components/gallery-experience";
 import { GoogleMap } from "@/components/google-map";
 import { SectionReveal } from "@/components/section-reveal";
 import { StructuredData } from "@/components/structured-data";
 import { UserCityBanner } from "@/components/user-city-banner";
-import { fleet, homeContent, homeFaqs, popularRoutes, services, testimonials, SITE_NAME, SITE_URL } from "@/data/site";
+import { contactDetails, fleet, homeContent, homeFaqs, popularRoutes, services, testimonials, SITE_NAME, SITE_URL } from "@/data/site";
 import { getGalleryImages } from "@/lib/gallery";
 import { buildAbsoluteUrl, buildMetadata } from "@/lib/metadata";
-import { buildAreaServed, buildDefaultServiceAreas } from "@/lib/structured-data";
+import { buildDefaultServiceAreas } from "@/lib/structured-data";
 
 export const metadata = buildMetadata({
   title: "Cab Service in Pune | Shriram Tour & Travels",
@@ -89,20 +91,6 @@ export default async function HomePage() {
     ],
   };
 
-  const routeCards = popularRoutes.map((route, index) => {
-    const isAirport = route.includes("Airport");
-    const isPilgrimage = route.includes("Shirdi");
-    const isBusiness = route.includes("Mumbai");
-
-    return {
-      route,
-      icon: isAirport ? Plane : isPilgrimage ? Landmark : isBusiness ? MapPinned : Route,
-      tag: isAirport ? "Airport transfer" : isPilgrimage ? "Pilgrimage ride" : isBusiness ? "Business corridor" : "Outstation ride",
-      detail: isAirport ? "Timed for flight departures and arrivals from Pune." : isPilgrimage ? "Comfort-first travel for temple visits and family groups." : isBusiness ? "Direct intercity travel with early pickups and smooth drop-offs." : "Reliable long-distance booking for weekend and family travel.",
-      accent: index % 3 === 0 ? "from-brand-500/12 to-brand-100" : index % 3 === 1 ? "from-accent-300/30 to-white" : "from-zinc-100 to-white",
-    };
-  });
-
   return (
     <>
       <StructuredData id="home-structured-data" data={homeStructuredData} />
@@ -162,22 +150,8 @@ export default async function HomePage() {
       <section className="py-16 sm:py-20">
         <Container>
           <SectionReveal>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
-              <div>
-                <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Services</p>
-                <h2 className="mt-2 font-display text-2xl font-semibold sm:text-3xl">Cab options for every travel need</h2>
-              </div>
-              <Link href="/services" className="hidden text-sm font-semibold text-brand-600 md:inline-block">View all services</Link>
-            </div>
+            <ServiceCards />
           </SectionReveal>
-          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {services.map((service, index) => (
-              <SectionReveal key={service.title} delay={index * 0.06} className="rounded-[1.75rem] border border-zinc-200 bg-white p-6 shadow-soft">
-                <h3 className="font-display text-2xl font-semibold">{service.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-zinc-600">{service.description}</p>
-              </SectionReveal>
-            ))}
-          </div>
         </Container>
       </section>
 
@@ -208,101 +182,54 @@ export default async function HomePage() {
 
       <section className="py-16 sm:py-20">
         <Container>
-          <SectionReveal className="relative overflow-hidden rounded-[2.25rem] border border-zinc-200/80 bg-white/90 p-5 shadow-soft backdrop-blur sm:p-7 lg:p-8">
-            <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-accent-300/20 blur-3xl" />
-
-            <div className="relative">
-              <div className="overflow-hidden rounded-[1.95rem] bg-gradient-to-r from-ink via-ink/95 to-brand-900 px-5 py-6 text-white sm:px-7 sm:py-8 lg:px-8">
-                <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-                  <div className="p-1">
-                    <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent-300">Popular routes</p>
-                    <h2 className="mt-3 max-w-xl font-display text-2xl font-semibold sm:text-4xl">High-demand rides booked every week</h2>
-                    <p className="mt-4 max-w-2xl text-sm leading-7 text-zinc-300 sm:text-base">Use our fleet for airport transfers, pilgrimage trips, business travel, and weekend outstation bookings from Pune.</p>
-                  </div>
-
-                  <div className="grid gap-3 md:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
-                    {[
-                      "Airport drops from Wakad and Hinjewadi",
-                      "Outstation routes with direct support",
-                      "Fast booking flow built for mobile users",
-                    ].map((item) => (
-                      <div key={item} className="flex min-h-[88px] items-start gap-3 rounded-[1.4rem] border border-white/10 bg-white/10 px-4 py-4 text-white backdrop-blur-sm">
-                        <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10">
-                          <Clock3 className="h-4 w-4 text-accent-300" />
-                        </div>
-                        <p className="text-sm leading-6 text-zinc-100">{item}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                {routeCards.map((item, index) => {
-                  const Icon = item.icon;
-
-                  return (
-                    <SectionReveal
-                      key={item.route}
-                      delay={index * 0.05}
-                      className="group flex h-full flex-col rounded-[1.75rem] border border-zinc-200 bg-white p-4 shadow-[0_10px_30px_rgba(24,24,27,0.07)] transition duration-300 hover:-translate-y-1 sm:p-5"
-                    >
-                      <div className={`rounded-[1.35rem] bg-gradient-to-br ${item.accent} p-4 sm:p-5`}>
-                        <div className="flex items-start justify-between gap-4">
-                          <div>
-                            <span className="inline-flex rounded-full border border-zinc-300/70 bg-white/85 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.22em] text-zinc-700">
-                              {item.tag}
-                            </span>
-                            <p className="mt-4 font-display text-[1.4rem] font-semibold leading-tight text-zinc-950 sm:text-[1.9rem]">{item.route}</p>
-                          </div>
-                          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-brand-600 shadow-sm">
-                            <Icon className="h-5 w-5" />
-                          </div>
-                        </div>
-                      </div>
-
-                      <p className="mt-4 flex-1 text-sm leading-7 text-zinc-600">{item.detail}</p>
-                      <div className="mt-5 flex items-center justify-between gap-4 border-t border-dashed border-zinc-200 pt-4">
-                        <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">Direct booking support</span>
-                        <ArrowUpRight className="h-4 w-4 text-zinc-400 transition group-hover:text-brand-600" />
-                      </div>
-                    </SectionReveal>
-                  );
-                })}
-              </div>
-
-              <div className="row-scroll mt-6 flex gap-3 pb-1">
-                {[
-                  "Airport pickup",
-                  "Temple trip",
-                  "Corporate ride",
-                  "Weekend outstation",
-                ].map((item) => (
-                  <span key={item} className="inline-flex shrink-0 items-center gap-2 rounded-full border border-brand-200 bg-brand-50/70 px-4 py-2 text-sm font-semibold text-zinc-700 shadow-sm">
-                    <span className="h-2 w-2 rounded-full bg-brand-500" />
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
+          <SectionReveal>
+            <PopularRoutes />
           </SectionReveal>
         </Container>
       </section>
 
       <section className="py-16 sm:py-20">
         <Container>
-          <div className="grid gap-5 lg:grid-cols-3">
-            {[
-              "Verified drivers with punctual pickups",
-              "Flexible fleet for 4 to 8 passengers",
-              "Fast WhatsApp booking and mobile CTA flow",
-            ].map((item, index) => (
-              <SectionReveal key={item} delay={index * 0.07} className="rounded-[1.75rem] border border-brand-100 bg-gradient-to-br from-white to-brand-50 p-6 shadow-soft">
-                <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Why choose us</p>
-                <h2 className="mt-3 font-display text-2xl font-semibold">{item}</h2>
-                <p className="mt-3 text-sm leading-7 text-zinc-600">Designed to feel premium while staying practical for daily booking needs across Pune and surrounding locations.</p>
-              </SectionReveal>
-            ))}
+          <SectionReveal>
+            <p className="text-center text-sm font-bold uppercase tracking-[0.28em] text-brand-600">Why Choose Us</p>
+          </SectionReveal>
+          <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
+            <SectionReveal delay={0} className="flex flex-col items-center rounded-[1.5rem] border border-zinc-100 bg-white p-5 text-center shadow-soft sm:rounded-[1.75rem] sm:p-7">
+              <svg viewBox="0 0 56 56" fill="none" className="h-14 w-14">
+                <circle cx="28" cy="28" r="28" fill="#fff7ed" />
+                <path d="M28 12 L40 17 L40 28 C40 35 34 41 28 44 C22 41 16 35 16 28 L16 17 Z" fill="#f97316" />
+                <path d="M22 28 L26 32 L34 24" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <h3 className="mt-4 font-display text-sm font-bold text-zinc-950 sm:text-lg">Verified, Punctual Drivers</h3>
+              <p className="mt-2 text-xs leading-6 text-zinc-500 sm:text-sm sm:leading-7">Feel premium with punctual, verified drivers ideal for daily bookings across Pune and nearby areas.</p>
+            </SectionReveal>
+            <SectionReveal delay={0.07} className="flex flex-col items-center rounded-[1.5rem] border border-zinc-100 bg-white p-5 text-center shadow-soft sm:rounded-[1.75rem] sm:p-7">
+              <svg viewBox="0 0 56 56" fill="none" className="h-14 w-14">
+                <circle cx="28" cy="28" r="28" fill="#fff7ed" />
+                <rect x="10" y="26" width="36" height="14" rx="4" fill="#f97316" />
+                <rect x="14" y="20" width="26" height="12" rx="3" fill="#fb923c" />
+                <rect x="16" y="22" width="8" height="7" rx="1.5" fill="#bfdbfe" />
+                <rect x="26" y="22" width="8" height="7" rx="1.5" fill="#bfdbfe" />
+                <circle cx="18" cy="40" r="4" fill="#1c1917" />
+                <circle cx="18" cy="40" r="2" fill="#78716c" />
+                <circle cx="38" cy="40" r="4" fill="#1c1917" />
+                <circle cx="38" cy="40" r="2" fill="#78716c" />
+                <rect x="10" y="32" width="36" height="2" rx="1" fill="#c2410c" />
+                <rect x="42" y="28" width="5" height="4" rx="1" fill="#fbbf24" opacity="0.8" />
+              </svg>
+              <h3 className="mt-4 font-display text-sm font-bold text-zinc-950 sm:text-lg">Flexible Fleet Options</h3>
+              <p className="mt-2 text-xs leading-6 text-zinc-500 sm:text-sm sm:leading-7">Choose from a range of vehicles accommodating 4 to 8 passengers for daily and outstation rides.</p>
+            </SectionReveal>
+            <SectionReveal delay={0.14} className="col-span-2 flex flex-col items-center rounded-[1.5rem] border border-zinc-100 bg-white p-5 text-center shadow-soft sm:rounded-[1.75rem] sm:p-7 lg:col-span-1">
+              <svg viewBox="0 0 56 56" fill="none" className="h-14 w-14">
+                <circle cx="28" cy="28" r="28" fill="#fff7ed" />
+                <circle cx="28" cy="26" r="13" fill="#f97316" />
+                <path d="M33 31 L30 30 L28 33 C25 32 23 30 22 27 L25 25 L23 21 L19 21 C19 28 24 34 31 34 Z" fill="white" />
+                <path d="M28 37 L24 43 L28 41 L32 43 Z" fill="#f97316" />
+              </svg>
+              <h3 className="mt-4 font-display text-sm font-bold text-zinc-950 sm:text-lg">Easy WhatsApp Booking</h3>
+              <p className="mt-2 text-xs leading-6 text-zinc-500 sm:text-sm sm:leading-7">Book cabs quickly through WhatsApp with a seamless mobile booking experience.</p>
+            </SectionReveal>
           </div>
         </Container>
       </section>
@@ -313,80 +240,195 @@ export default async function HomePage() {
             <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Testimonials</p>
             <h2 className="mt-2 font-display text-2xl font-semibold sm:text-3xl">What riders say about our Pune cab service</h2>
           </SectionReveal>
-          <div className="mt-8 grid gap-5 lg:grid-cols-3">
-            {testimonials.map((item, index) => (
-              <SectionReveal key={item.name} delay={index * 0.06} className="rounded-[1.75rem] border border-zinc-200 bg-white p-6 shadow-soft">
-                <p className="text-sm leading-7 text-zinc-600">“{item.quote}”</p>
-                <p className="mt-6 font-semibold text-zinc-900">{item.name}</p>
-              </SectionReveal>
-            ))}
+          <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
+            {testimonials.map((item, index) => {
+              const initials = item.name.split(" ").map((n: string) => n[0]).join("");
+              return (
+                <SectionReveal key={item.name} delay={index * 0.06} className="flex flex-col justify-between rounded-[1.5rem] border border-zinc-100 bg-white p-4 shadow-soft sm:rounded-[1.75rem] sm:p-6">
+                  <p className="text-xs leading-6 text-zinc-600 sm:text-sm sm:leading-7">“{item.quote}”</p>
+                  <div className="mt-5 flex items-center gap-3">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-500 text-xs font-bold text-white sm:h-11 sm:w-11 sm:text-sm">
+                      {initials}
+                    </span>
+                    <p className="text-xs font-semibold text-zinc-900 sm:text-sm">{item.name}</p>
+                  </div>
+                </SectionReveal>
+              );
+            })}
           </div>
         </Container>
       </section>
 
       <section className="py-16 sm:py-20">
         <Container>
-          <SectionReveal className="overflow-hidden rounded-[2.2rem] border border-zinc-200 bg-white shadow-soft">
-            <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+          {/* Gallery header card — edge-to-edge on mobile */}
+          <SectionReveal className="-mx-4 bg-white px-5 py-6 sm:mx-0 sm:rounded-[1.75rem] sm:border sm:border-zinc-200 sm:p-7 sm:shadow-soft">
+            <div className="grid gap-5 sm:grid-cols-[1fr_auto] sm:items-start">
               <div>
-                <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Gallery</p>
-                <h2 className="mt-2 max-w-2xl font-display text-2xl font-semibold sm:text-3xl">See the cars, ride moments, and real travel setup behind the bookings</h2>
-                <p className="mt-4 max-w-3xl text-sm leading-7 text-zinc-600 sm:text-base sm:leading-8">
-                  A visual look at actual vehicles, customer-ready interiors, and on-road service moments from Pune bookings, airport drops, and outstation travel.
+                <p className="text-xs font-bold uppercase tracking-[0.28em] text-brand-600 sm:text-sm">Gallery</p>
+                <h2 className="mt-2 font-display text-2xl font-bold text-zinc-950 sm:text-3xl">
+                  See the Cars, Ride Moments &amp; Real Trips Behind the Bookings
+                </h2>
+                <p className="mt-3 max-w-xl text-sm leading-7 text-zinc-500">
+                  View our fleet, on-trip photos, customer-ready vehicles, and real travel moments after cab bookings.
                 </p>
               </div>
-
-              <div className="grid grid-cols-3 gap-3 text-center">
-                <div className="rounded-[1.4rem] bg-brand-50 px-4 py-4">
-                  <p className="font-display text-2xl font-semibold text-brand-700">{galleryImages.length}+</p>
-                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Preview shots</p>
+              {/* Stats — 3-col on sm+, 2-col on mobile */}
+              <div className="grid grid-cols-3 gap-2 sm:shrink-0 sm:grid-cols-1 sm:gap-3">
+                <div className="rounded-[1.2rem] bg-brand-50 px-4 py-3 text-center sm:px-5 sm:py-4">
+                  <p className="text-lg font-bold text-brand-600 sm:text-2xl">📷 {galleryImages.length}+</p>
+                  <p className="mt-0.5 text-[10px] font-semibold text-zinc-500 sm:text-xs">Gallery</p>
                 </div>
-                <div className="rounded-[1.4rem] bg-zinc-100 px-4 py-4">
-                  <p className="font-display text-2xl font-semibold text-zinc-900">Pune</p>
-                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Core market</p>
+                <div className="rounded-[1.2rem] bg-zinc-100 px-4 py-3 text-center sm:px-5 sm:py-4">
+                  <p className="text-lg font-bold text-zinc-900 sm:text-2xl">Pune</p>
+                  <p className="mt-0.5 text-[10px] font-semibold text-zinc-500 sm:text-xs">Pickup Zones</p>
                 </div>
-                <div className="rounded-[1.4rem] bg-accent-300/25 px-4 py-4">
-                  <p className="font-display text-2xl font-semibold text-zinc-900">24/7</p>
-                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Trip support</p>
+                <div className="rounded-[1.2rem] bg-amber-50 px-4 py-3 text-center sm:px-5 sm:py-4">
+                  <p className="text-lg font-bold text-zinc-900 sm:text-2xl">24/7</p>
+                  <p className="mt-0.5 text-[10px] font-semibold text-zinc-500 sm:text-xs">Available 24/7</p>
                 </div>
               </div>
             </div>
-
-            <div className="flex items-center justify-between gap-4 border-t border-zinc-200 bg-zinc-50/80 px-6 py-4 sm:px-8">
-              <p className="text-sm text-zinc-600">Open the full gallery to browse all available service photos.</p>
-              <Link href="/gallery" className="inline-flex shrink-0 items-center rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800">
-                View Full Gallery
+            <div className="mt-5 flex items-center justify-between gap-4 border-t border-zinc-100 pt-5">
+              <p className="text-xs leading-6 text-zinc-500 sm:text-sm sm:leading-7">
+                Explore photos of our vehicles, clean interiors, and real customer moments from Pune rides, airport drops, and outstation journeys.
+              </p>
+              <Link
+                href="/gallery"
+                className="inline-flex shrink-0 items-center gap-2 rounded-full bg-brand-500 px-4 py-2.5 text-xs font-bold text-white hover:bg-brand-600 sm:px-5 sm:py-3 sm:text-sm"
+              >
+                Browse Full Gallery <span>›</span>
               </Link>
             </div>
           </SectionReveal>
 
-          <SectionReveal delay={0.08} className="mt-8">
-            <GalleryExperience items={galleryPreviewItems} />
+          {/* Gallery rail + side CTA — edge-to-edge on mobile */}
+          <SectionReveal delay={0.08} className="-mx-4 mt-px sm:mx-0 sm:mt-4">
+            <div className="grid sm:grid-cols-[1fr_auto] sm:gap-4">
+              {/* Gallery experience */}
+              <div className="min-w-0">
+                <GalleryExperience items={galleryPreviewItems} />
+              </div>
+              {/* Side CTA panel — hidden on mobile, shown sm+ */}
+              <div className="hidden w-64 shrink-0 flex-col rounded-[1.75rem] bg-gradient-to-br from-brand-500 to-[#b83a00] p-6 text-white sm:flex xl:w-72">
+                <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-amber-300">Get At-A-Glance</p>
+                <h3 className="mt-3 font-display text-xl font-bold leading-snug">
+                  Get Instant Pricing &amp; Booking
+                </h3>
+                <p className="mt-2 text-sm text-orange-100">Instant fares in 30 secs.</p>
+                <Link
+                  href="/booking"
+                  className="mt-5 inline-flex items-center justify-center gap-1 rounded-full bg-white/20 px-4 py-3 text-sm font-bold text-white ring-1 ring-white/30 hover:bg-white/30"
+                >
+                  Book Your Cab Now <span>›</span>
+                </Link>
+                <a
+                  href={`https://wa.me/${contactDetails.whatsappRaw}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-white px-4 py-3 text-sm font-bold text-zinc-900 hover:bg-zinc-50"
+                >
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-green-500"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.845L.057 23.428a.5.5 0 0 0 .609.61l5.652-1.48A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 0 1-5.001-1.368l-.358-.214-3.714.973.99-3.617-.234-.372A9.808 9.808 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+                  Get Instant Quote on WhatsApp
+                </a>
+                <ul className="mt-5 space-y-2">
+                  {["Instant fares in 30 secs", "4.8 / 6.0 Rated Drivers", "Pickup to final drop photos"].map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-xs text-orange-100">
+                      <span className="text-green-400">✓</span> {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </SectionReveal>
         </Container>
       </section>
 
       <section className="py-16 sm:py-20">
         <Container>
-          <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-            <SectionReveal className="rounded-[2rem] border border-zinc-200 bg-white p-6 shadow-soft sm:p-8">
-              <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Search-ready content</p>
-              <h2 className="mt-2 font-display text-2xl font-semibold sm:text-3xl">Cab service in Pune that is built to convert and rank</h2>
-              <div className="mt-5 space-y-5 text-sm leading-8 text-zinc-600">
-                {homeContent.map((paragraph) => (
-                  <p key={paragraph.slice(0, 36)}>{paragraph}</p>
+          {/* Edge-to-edge on mobile: -mx-4, no gap, stacked. On sm+: side-by-side with gap */}
+          <div className="-mx-4 grid grid-cols-1 sm:mx-0 sm:grid-cols-2 sm:gap-5 lg:gap-6">
+            {/* Left — content card */}
+            <SectionReveal className="bg-white px-5 py-7 sm:rounded-[1.75rem] sm:border sm:border-zinc-200 sm:p-8 sm:shadow-soft">
+              <p className="text-xs font-bold uppercase tracking-[0.28em] text-brand-600 sm:text-sm">Search-Ready Content</p>
+              <h2 className="mt-2 font-display text-2xl font-bold text-zinc-950 sm:text-3xl">
+                Cab Service in Pune Built for Fast Bookings
+              </h2>
+              <p className="mt-3 text-sm leading-7 text-zinc-500">
+                Popular cab rides in Pune, airport transfers, and reliable outstation trips. Fast booking with direct WhatsApp confirmations.
+              </p>
+              <ul className="mt-5 space-y-2.5">
+                {[
+                  "Serving Pune, Wakad, Hinjewadi, Baner, Kharadi & Nearby Rides",
+                  "Fleet of Swift Dzire, Ertiga, Kia Carens & Innova Crysta",
+                  "Prompt, clean, and AC cabs for family & corporate groups",
+                  "24x7 support, instant fares, and fastest driver matching",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-sm text-zinc-700">
+                    <span className="mt-0.5 text-brand-500">✓</span> {item}
+                  </li>
                 ))}
-              </div>
+              </ul>
+              <p className="mt-5 text-xs text-zinc-400">
+                Rated <span className="font-bold text-zinc-700">4.8 ★</span> based on 1,000+ Pune trips
+              </p>
+              <Link
+                href="/booking"
+                className="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-brand-500 py-3.5 text-sm font-bold text-white hover:bg-brand-600 sm:text-base"
+              >
+                Book Instant Cab Now <span>›</span>
+              </Link>
+              <p className="mt-3 text-center text-xs text-zinc-400">
+                Rated <span className="font-semibold text-zinc-600">4.8 ★</span> based on 1,000+ Pune trips
+              </p>
             </SectionReveal>
-            <SectionReveal delay={0.08} className="space-y-6">
-              <GoogleMap query="Wakad, Datta Mandir Road, Pune, Maharashtra, India" title="Shriram Tour & Travels Pune map" />
-              <div className="rounded-[2rem] bg-gradient-to-br from-brand-500 to-brand-700 p-6 text-white shadow-soft sm:p-8">
-                <p className="text-sm font-bold uppercase tracking-[0.25em] text-accent-200">Book now</p>
-                <h2 className="mt-2 font-display text-2xl font-semibold sm:text-3xl">Need a cab in Pune today?</h2>
-                <p className="mt-4 text-sm leading-7 text-orange-50">Book instantly for airport transfers, one-way rides, round trips, and business travel.</p>
-                <div className="mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
-                  <Link href="/booking" className="rounded-full bg-white px-4 py-3 text-center text-sm font-semibold text-brand-700 sm:px-5">Start Booking</Link>
-                  <Link href="/contact" className="rounded-full border border-white/40 px-4 py-3 text-center text-sm font-semibold text-white sm:px-5">Contact Us</Link>
+
+            {/* Right — map + CTA card */}
+            <SectionReveal delay={0.08} className="flex flex-col">
+              {/* Map */}
+              <div className="relative overflow-hidden sm:rounded-t-[1.75rem]">
+                <GoogleMap query="Wakad, Datta Mandir Road, Pune, Maharashtra, India" title="Shriram Tour & Travels Pune map" />
+                <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-brand-500 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white shadow-lg">
+                  🔥 Serving 20+ Zones
+                </span>
+              </div>
+              {/* Orange CTA panel */}
+              <div className="bg-gradient-to-br from-brand-500 to-[#b83a00] px-5 py-6 sm:rounded-b-[1.75rem] sm:px-7">
+                <h3 className="font-display text-xl font-bold text-white sm:text-2xl">
+                  🔔 Need a Cab in Pune ASAP?
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-orange-100">
+                  Get fast confirmation on WhatsApp. Best rated for airport transfers, outstation rides, corporate travel & more.
+                </p>
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  <a
+                    href={`https://wa.me/${contactDetails.whatsappRaw}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 rounded-full bg-white px-3 py-3 text-xs font-bold text-zinc-900 hover:bg-zinc-50 sm:text-sm"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 fill-green-500 shrink-0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.845L.057 23.428a.5.5 0 0 0 .609.61l5.652-1.48A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 0 1-5.001-1.368l-.358-.214-3.714.973.99-3.617-.234-.372A9.808 9.808 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+                    Start Booking on WhatsApp
+                  </a>
+                  <a
+                    href={`tel:${contactDetails.phoneRaw}`}
+                    className="flex items-center justify-center gap-2 rounded-full bg-zinc-900 px-3 py-3 text-xs font-bold text-white hover:bg-zinc-800 sm:text-sm"
+                  >
+                    <Phone className="h-4 w-4 shrink-0" />
+                    +91 {contactDetails.phoneDisplay}
+                  </a>
+                </div>
+                <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-1.5">
+                  {[
+                    "Instant fares & driver match in 60 secs",
+                    "24/7 prompt support",
+                    "4.8/5.0 Rated Drivers",
+                    "Best in class fleet",
+                  ].map((item) => (
+                    <p key={item} className="flex items-center gap-1.5 text-[11px] text-orange-100">
+                      <span className="text-green-400">✓</span> {item}
+                    </p>
+                  ))}
                 </div>
               </div>
             </SectionReveal>
@@ -397,19 +439,91 @@ export default async function HomePage() {
       <section className="py-16 sm:py-20">
         <Container>
           <SectionReveal>
-            <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Common questions</p>
-            <h2 className="mt-2 font-display text-2xl font-semibold sm:text-3xl">Booking details travelers usually ask before they confirm</h2>
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-brand-600 sm:text-sm">Common Questions</p>
+            <h2 className="mt-2 font-display text-2xl font-bold text-zinc-950 sm:text-3xl">Questions Travelers Ask Before Confirming Ride</h2>
+            <p className="mt-2 text-sm text-zinc-500">Quick answers to help clarify our cab services and booking process.</p>
           </SectionReveal>
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
-            {homeFaqs.map((item, index) => (
-              <SectionReveal key={item.question} delay={index * 0.06} className="rounded-[1.75rem] border border-zinc-200 bg-white p-6 shadow-soft">
-                <h3 className="font-display text-2xl font-semibold">{item.question}</h3>
-                <p className="mt-3 text-sm leading-7 text-zinc-600">{item.answer}</p>
+
+          {/* Edge-to-edge on mobile, 2-col always */}
+          <div className="-mx-4 mt-6 grid grid-cols-2 gap-px bg-zinc-100 sm:mx-0 sm:gap-4 sm:bg-transparent">
+            {[
+              {
+                icon: (
+                  <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10"><circle cx="20" cy="20" r="20" fill="#fff7ed"/><path d="M20 10 C20 16 14 20 14 20 C14 20 20 24 20 30 C20 24 26 20 26 20 C26 20 20 16 20 10Z" fill="#f97316" opacity="0.3"/><path d="M20 8 C20 15 13 19 13 19 C13 19 20 23 20 30" stroke="#f97316" strokeWidth="1.5" fill="none" strokeLinecap="round"/><circle cx="20" cy="14" r="4" fill="#f97316"/><circle cx="20" cy="14" r="2" fill="#fff"/></svg>
+                ),
+                question: "Which areas do you serve around Pune?",
+                bullets: [
+                  { icon: "🚕", text: <><strong>Pune, Wakad,</strong> Hinjewadi, Baner, Kharadi &amp; Viman Nagar</> },
+                  { icon: "🚗", text: "Popular pickup zones covered for local & outstation rides" },
+                ],
+              },
+              {
+                icon: (
+                  <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10"><circle cx="20" cy="20" r="20" fill="#fff7ed"/><circle cx="20" cy="20" r="10" stroke="#f97316" strokeWidth="2" fill="none"/><line x1="20" y1="20" x2="20" y2="13" stroke="#f97316" strokeWidth="2" strokeLinecap="round"/><line x1="20" y1="20" x2="25" y2="20" stroke="#f97316" strokeWidth="2" strokeLinecap="round"/><circle cx="20" cy="20" r="1.5" fill="#f97316"/></svg>
+                ),
+                question: "Can I book airport pickups for early morning flights?",
+                bullets: [
+                  { icon: "✈️", text: "Rides available for early flights & late arrivals" },
+                  { icon: "💬", text: "Confirmed instantly on WhatsApp" },
+                ],
+              },
+              {
+                icon: (
+                  <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10"><circle cx="20" cy="20" r="20" fill="#fff7ed"/><rect x="10" y="22" width="20" height="10" rx="3" fill="#f97316"/><path d="M13 22 L15 16 L25 16 L27 22Z" fill="#fb923c"/><circle cx="14" cy="32" r="3" fill="#292524"/><circle cx="26" cy="32" r="3" fill="#292524"/><circle cx="20" cy="14" r="4" fill="#f97316" opacity="0.6"/><circle cx="26" cy="12" r="3" fill="#fb923c" opacity="0.5"/></svg>
+                ),
+                question: "Which cars do you offer for families & groups?",
+                bullets: [
+                  { icon: "🚐", text: <><strong>Ertiga, Kia Carens,</strong> Innova Crysta</> },
+                  { icon: "🧳", text: "Spacious, AC cabs with luggage space" },
+                ],
+              },
+              {
+                icon: (
+                  <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10"><circle cx="20" cy="20" r="20" fill="#fff7ed"/><rect x="13" y="10" width="14" height="18" rx="2" fill="#f97316" opacity="0.2" stroke="#f97316" strokeWidth="1.5"/><line x1="16" y1="15" x2="24" y2="15" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round"/><line x1="16" y1="19" x2="24" y2="19" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round"/><line x1="16" y1="23" x2="21" y2="23" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round"/><circle cx="26" cy="28" r="5" fill="#f97316"/><path d="M24 28 L25.5 29.5 L28 27" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                ),
+                question: "How does the booking process work?",
+                bullets: [
+                  { icon: "🚖", text: "Fill form or WhatsApp us trip details" },
+                  { icon: "✅", text: "Quick matching & driver confirmation" },
+                ],
+              },
+            ].map((faq, index) => (
+              <SectionReveal
+                key={faq.question}
+                delay={index * 0.06}
+                className="flex flex-col bg-white p-4 sm:rounded-[1.75rem] sm:border sm:border-zinc-100 sm:p-6 sm:shadow-soft"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="shrink-0">{faq.icon}</div>
+                  <h3 className="font-display text-sm font-bold leading-snug text-zinc-950 sm:text-base">{faq.question}</h3>
+                </div>
+                <ul className="mt-4 space-y-3">
+                  {faq.bullets.map((b, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-xs leading-5 text-zinc-600 sm:text-sm sm:leading-6">
+                      <span className="shrink-0 text-base leading-none">{b.icon}</span>
+                      <span>{b.text}</span>
+                    </li>
+                  ))}
+                </ul>
               </SectionReveal>
             ))}
+          </div>
+
+          {/* Footer CTA */}
+          <div className="mt-6 flex justify-end">
+            <a
+              href={`https://wa.me/${contactDetails.whatsappRaw}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 rounded-full bg-brand-500 px-5 py-3.5 text-sm font-bold text-white hover:bg-brand-600 sm:px-6 sm:text-base"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 fill-white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.845L.057 23.428a.5.5 0 0 0 .609.61l5.652-1.48A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 0 1-5.001-1.368l-.358-.214-3.714.973.99-3.617-.234-.372A9.808 9.808 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+              WhatsApp Your Cab Details <span>›</span>
+            </a>
           </div>
         </Container>
       </section>
     </>
   );
 }
+

@@ -139,29 +139,48 @@ export type LocationEntry = {
   route: string;
   nearby: string[];
   mapQuery: string;
+  /** Approximate coordinates for JSON-LD GeoCoordinates */
+  geo?: { lat: number; lng: number };
+  /** Short descriptor used in meta descriptions and H2 copy */
+  areaType?: string;
 };
 
 export const locations: LocationEntry[] = [
-  { name: "Pune", route: "cab-service-pune", nearby: ["Wakad", "Baner", "Kharadi"], mapQuery: "Pune Maharashtra India" },
-  { name: "Wakad", route: "cab-service-wakad", nearby: ["Hinjewadi", "Ravet", "Pimpri"], mapQuery: "Wakad Pune Maharashtra India" },
-  { name: "Hinjewadi", route: "cab-service-hinjewadi", nearby: ["Wakad", "Baner", "Pimple Saudagar"], mapQuery: "Hinjewadi Pune Maharashtra India" },
-  { name: "Baner", route: "cab-service-baner", nearby: ["Aundh", "Hinjewadi", "Balewadi"], mapQuery: "Baner Pune Maharashtra India" },
-  { name: "Aundh", route: "cab-service-aundh", nearby: ["Baner", "Pimple Saudagar", "Shivajinagar"], mapQuery: "Aundh Pune Maharashtra India" },
-  { name: "Pimpri", route: "cab-service-pimpri", nearby: ["Chinchwad", "Nigdi", "Wakad"], mapQuery: "Pimpri Pune Maharashtra India" },
-  { name: "Chinchwad", route: "cab-service-chinchwad", nearby: ["Pimpri", "Nigdi", "Akurdi"], mapQuery: "Chinchwad Pune Maharashtra India" },
-  { name: "Nigdi", route: "cab-service-nigdi", nearby: ["Chinchwad", "Akurdi", "Dehu Road"], mapQuery: "Nigdi Pune Maharashtra India" },
-  { name: "Ravet", route: "cab-service-ravet", nearby: ["Wakad", "Nigdi", "Dehu Road"], mapQuery: "Ravet Pune Maharashtra India" },
-  { name: "Pimple Saudagar", route: "cab-service-pimple-saudagar", nearby: ["Aundh", "Wakad", "Hinjewadi"], mapQuery: "Pimple Saudagar Pune Maharashtra India" },
-  { name: "Kothrud", route: "cab-service-kothrud", nearby: ["Bavdhan", "Pune", "Shivajinagar"], mapQuery: "Kothrud Pune Maharashtra India" },
-  { name: "Bavdhan", route: "cab-service-bavdhan", nearby: ["Kothrud", "Baner", "Pashan"], mapQuery: "Bavdhan Pune Maharashtra India" },
-  { name: "Hadapsar", route: "cab-service-hadapsar", nearby: ["Magarpatta", "Kharadi", "Pune"], mapQuery: "Hadapsar Pune Maharashtra India" },
-  { name: "Magarpatta", route: "cab-service-magarpatta", nearby: ["Hadapsar", "Kharadi", "Viman Nagar"], mapQuery: "Magarpatta Pune Maharashtra India" },
-  { name: "Viman Nagar", route: "cab-service-viman-nagar", nearby: ["Kharadi", "Wagholi", "Pune Airport"], mapQuery: "Viman Nagar Pune Maharashtra India" },
-  { name: "Kharadi", route: "cab-service-kharadi", nearby: ["Viman Nagar", "Wagholi", "Hadapsar"], mapQuery: "Kharadi Pune Maharashtra India" },
-  { name: "Wagholi", route: "cab-service-wagholi", nearby: ["Kharadi", "Viman Nagar", "Hadapsar"], mapQuery: "Wagholi Pune Maharashtra India" },
-  { name: "Talegaon", route: "cab-service-talegaon", nearby: ["Dehu Road", "Nigdi", "Wakad"], mapQuery: "Talegaon Pune Maharashtra India" },
-  { name: "Dehu Road", route: "cab-service-dehu-road", nearby: ["Talegaon", "Nigdi", "Ravet"], mapQuery: "Dehu Road Pune Maharashtra India" },
-  { name: "Akurdi", route: "cab-service-akurdi", nearby: ["Nigdi", "Chinchwad", "Pimpri"], mapQuery: "Akurdi Pune Maharashtra India" },
+  { name: "Pune", route: "cab-service-pune", nearby: ["Wakad", "Baner", "Kharadi"], mapQuery: "Pune Maharashtra India", geo: { lat: 18.5204, lng: 73.8567 }, areaType: "city centre" },
+  { name: "Wakad", route: "cab-service-wakad", nearby: ["Hinjewadi", "Ravet", "Pimpri"], mapQuery: "Wakad Pune Maharashtra India", geo: { lat: 18.5975, lng: 73.7898 }, areaType: "IT suburb" },
+  { name: "Hinjewadi", route: "cab-service-hinjewadi", nearby: ["Wakad", "Baner", "Pimple Saudagar"], mapQuery: "Hinjewadi Pune Maharashtra India", geo: { lat: 18.5912, lng: 73.7389 }, areaType: "IT hub" },
+  { name: "Baner", route: "cab-service-baner", nearby: ["Aundh", "Hinjewadi", "Balewadi"], mapQuery: "Baner Pune Maharashtra India", geo: { lat: 18.5590, lng: 73.7868 }, areaType: "residential hub" },
+  { name: "Aundh", route: "cab-service-aundh", nearby: ["Baner", "Pimple Saudagar", "Shivajinagar"], mapQuery: "Aundh Pune Maharashtra India", geo: { lat: 18.5626, lng: 73.8076 }, areaType: "residential area" },
+  { name: "Pimpri", route: "cab-service-pimpri", nearby: ["Chinchwad", "Nigdi", "Wakad"], mapQuery: "Pimpri Pune Maharashtra India", geo: { lat: 18.6279, lng: 73.7997 }, areaType: "industrial township" },
+  { name: "Chinchwad", route: "cab-service-chinchwad", nearby: ["Pimpri", "Nigdi", "Akurdi"], mapQuery: "Chinchwad Pune Maharashtra India", geo: { lat: 18.6186, lng: 73.8037 }, areaType: "PCMC area" },
+  { name: "Nigdi", route: "cab-service-nigdi", nearby: ["Chinchwad", "Akurdi", "Dehu Road"], mapQuery: "Nigdi Pune Maharashtra India", geo: { lat: 18.6488, lng: 73.7693 }, areaType: "PCMC suburb" },
+  { name: "Ravet", route: "cab-service-ravet", nearby: ["Wakad", "Nigdi", "Dehu Road"], mapQuery: "Ravet Pune Maharashtra India", geo: { lat: 18.6468, lng: 73.7601 }, areaType: "growing suburb" },
+  { name: "Pimple Saudagar", route: "cab-service-pimple-saudagar", nearby: ["Aundh", "Wakad", "Hinjewadi"], mapQuery: "Pimple Saudagar Pune Maharashtra India", geo: { lat: 18.5931, lng: 73.8069 }, areaType: "residential suburb" },
+  { name: "Kothrud", route: "cab-service-kothrud", nearby: ["Bavdhan", "Pune", "Shivajinagar"], mapQuery: "Kothrud Pune Maharashtra India", geo: { lat: 18.5074, lng: 73.8077 }, areaType: "residential area" },
+  { name: "Bavdhan", route: "cab-service-bavdhan", nearby: ["Kothrud", "Baner", "Pashan"], mapQuery: "Bavdhan Pune Maharashtra India", geo: { lat: 18.5204, lng: 73.7726 }, areaType: "hillside suburb" },
+  { name: "Hadapsar", route: "cab-service-hadapsar", nearby: ["Magarpatta", "Kharadi", "Pune"], mapQuery: "Hadapsar Pune Maharashtra India", geo: { lat: 18.5018, lng: 73.9260 }, areaType: "east Pune hub" },
+  { name: "Magarpatta", route: "cab-service-magarpatta", nearby: ["Hadapsar", "Kharadi", "Viman Nagar"], mapQuery: "Magarpatta Pune Maharashtra India", geo: { lat: 18.5116, lng: 73.9285 }, areaType: "IT township" },
+  { name: "Viman Nagar", route: "cab-service-viman-nagar", nearby: ["Kharadi", "Wagholi", "Kalyani Nagar"], mapQuery: "Viman Nagar Pune Maharashtra India", geo: { lat: 18.5679, lng: 73.9143 }, areaType: "airport zone" },
+  { name: "Kharadi", route: "cab-service-kharadi", nearby: ["Viman Nagar", "Wagholi", "Hadapsar"], mapQuery: "Kharadi Pune Maharashtra India", geo: { lat: 18.5512, lng: 73.9442 }, areaType: "IT corridor" },
+  { name: "Wagholi", route: "cab-service-wagholi", nearby: ["Kharadi", "Viman Nagar", "Hadapsar"], mapQuery: "Wagholi Pune Maharashtra India", geo: { lat: 18.5697, lng: 73.9800 }, areaType: "east suburb" },
+  { name: "Talegaon", route: "cab-service-talegaon", nearby: ["Dehu Road", "Nigdi", "Wakad"], mapQuery: "Talegaon Pune Maharashtra India", geo: { lat: 18.7333, lng: 73.6833 }, areaType: "outskirt town" },
+  { name: "Dehu Road", route: "cab-service-dehu-road", nearby: ["Talegaon", "Nigdi", "Ravet"], mapQuery: "Dehu Road Pune Maharashtra India", geo: { lat: 18.6667, lng: 73.7500 }, areaType: "cantonment area" },
+  { name: "Akurdi", route: "cab-service-akurdi", nearby: ["Nigdi", "Chinchwad", "Pimpri"], mapQuery: "Akurdi Pune Maharashtra India", geo: { lat: 18.6481, lng: 73.7726 }, areaType: "PCMC locality" },
+  { name: "Shivajinagar", route: "cab-service-shivajinagar", nearby: ["Aundh", "Kothrud", "Pune"], mapQuery: "Shivajinagar Pune Maharashtra India", geo: { lat: 18.5308, lng: 73.8474 }, areaType: "central Pune" },
+  { name: "Kalyani Nagar", route: "cab-service-kalyani-nagar", nearby: ["Viman Nagar", "Kharadi", "Koregaon Park"], mapQuery: "Kalyani Nagar Pune Maharashtra India", geo: { lat: 18.5461, lng: 73.9008 }, areaType: "upscale locality" },
+  { name: "Koregaon Park", route: "cab-service-koregaon-park", nearby: ["Kalyani Nagar", "Shivajinagar", "Viman Nagar"], mapQuery: "Koregaon Park Pune Maharashtra India", geo: { lat: 18.5362, lng: 73.8938 }, areaType: "premium locality" },
+  { name: "Yerawada", route: "cab-service-yerawada", nearby: ["Viman Nagar", "Kalyani Nagar", "Kharadi"], mapQuery: "Yerawada Pune Maharashtra India", geo: { lat: 18.5530, lng: 73.8930 }, areaType: "central suburb" },
+  { name: "Pashan", route: "cab-service-pashan", nearby: ["Baner", "Bavdhan", "Aundh"], mapQuery: "Pashan Pune Maharashtra India", geo: { lat: 18.5362, lng: 73.7897 }, areaType: "residential area" },
+  { name: "Balewadi", route: "cab-service-balewadi", nearby: ["Baner", "Aundh", "Hinjewadi"], mapQuery: "Balewadi Pune Maharashtra India", geo: { lat: 18.5741, lng: 73.7793 }, areaType: "sports city zone" },
+  { name: "Sus", route: "cab-service-sus", nearby: ["Baner", "Pashan", "Bavdhan"], mapQuery: "Sus Pune Maharashtra India", geo: { lat: 18.5450, lng: 73.7620 }, areaType: "emerging suburb" },
+  { name: "Undri", route: "cab-service-undri", nearby: ["Hadapsar", "Pune", "Kondhwa"], mapQuery: "Undri Pune Maharashtra India", geo: { lat: 18.4618, lng: 73.9010 }, areaType: "south Pune suburb" },
+  { name: "Kondhwa", route: "cab-service-kondhwa", nearby: ["Undri", "Hadapsar", "Pune"], mapQuery: "Kondhwa Pune Maharashtra India", geo: { lat: 18.4726, lng: 73.8900 }, areaType: "south Pune area" },
+  { name: "Katraj", route: "cab-service-katraj", nearby: ["Kondhwa", "Pune", "Sinhagad Road"], mapQuery: "Katraj Pune Maharashtra India", geo: { lat: 18.4530, lng: 73.8620 }, areaType: "south Pune locality" },
+  { name: "Sinhagad Road", route: "cab-service-sinhagad-road", nearby: ["Katraj", "Kothrud", "Pune"], mapQuery: "Sinhagad Road Pune Maharashtra India", geo: { lat: 18.4800, lng: 73.8200 }, areaType: "south-west corridor" },
+  { name: "Pimple Nilakh", route: "cab-service-pimple-nilakh", nearby: ["Pimple Saudagar", "Aundh", "Wakad"], mapQuery: "Pimple Nilakh Pune Maharashtra India", geo: { lat: 18.5980, lng: 73.8010 }, areaType: "PCMC suburb" },
+  { name: "Bhosari", route: "cab-service-bhosari", nearby: ["Pimpri", "Chinchwad", "Nigdi"], mapQuery: "Bhosari Pune Maharashtra India", geo: { lat: 18.6480, lng: 73.8380 }, areaType: "industrial area" },
+  { name: "Dhanori", route: "cab-service-dhanori", nearby: ["Viman Nagar", "Kharadi", "Yerawada"], mapQuery: "Dhanori Pune Maharashtra India", geo: { lat: 18.5870, lng: 73.9100 }, areaType: "north-east suburb" },
+  { name: "Manjri", route: "cab-service-manjri", nearby: ["Hadapsar", "Kharadi", "Wagholi"], mapQuery: "Manjri Pune Maharashtra India", geo: { lat: 18.5100, lng: 73.9600 }, areaType: "east Pune locality" },
 ];
 
 export const homeContent = [

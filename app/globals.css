@@ -20,16 +20,70 @@ body {
 }
 
 @layer utilities {
+  /* ── Scrollbar suppression ──────────────────────────────────── */
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
 
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
+  /* ── row-scroll ─────────────────────────────────────────────── */
+  /* Touch-optimised horizontal scroll with snap. Apply directly  */
+  /* to the flex container that holds scrollable cards.           */
+  .row-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .row-scroll::-webkit-scrollbar { display: none; }
+  .row-scroll > * { scroll-snap-align: start; }
+
+  /* ── scroll-track ───────────────────────────────────────────── */
+  /* Wrapper that adds left/right gradient fade-edge indicators.  */
+  /* Set --scroll-fade to match the section background colour.    */
+  .scroll-track { position: relative; }
+  .scroll-track::before,
+  .scroll-track::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2.5rem;
+    pointer-events: none;
+    z-index: 10;
+  }
+  .scroll-track::before {
+    left: 0;
+    background: linear-gradient(to right, var(--scroll-fade, #ffffff), transparent);
+  }
+  .scroll-track::after {
+    right: 0;
+    background: linear-gradient(to left, var(--scroll-fade, #ffffff), transparent);
+  }
+  /* Hide fades on lg+ where grid takes over and nothing scrolls */
+  @media (min-width: 1024px) {
+    .scroll-track::before,
+    .scroll-track::after { display: none; }
   }
 
-  .row-scroll {
-    @apply overflow-x-auto whitespace-nowrap no-scrollbar;
+  /* ── card-sm / card-md / card-lg ────────────────────────────── */
+  /* Responsive min-width primitives for scroll-row children.     */
+  /* Resets to 0 on lg+ so CSS grid can size freely.              */
+  .card-sm { min-width: min(82vw, 18rem); }
+  .card-md { min-width: min(76vw, 22rem); }
+  .card-lg { min-width: min(80vw, 28rem); }
+
+  @media (min-width: 640px) {
+    .card-sm { min-width: min(46vw, 20rem); }
+    .card-md { min-width: min(46vw, 24rem); }
+    .card-lg { min-width: min(48vw, 30rem); }
+  }
+
+  @media (min-width: 1024px) {
+    .card-sm, .card-md, .card-lg { min-width: 0; }
   }
 }

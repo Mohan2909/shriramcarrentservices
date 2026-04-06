@@ -36,13 +36,8 @@ export default function BookingPage() {
       <Container>
         <StructuredData id="booking-structured-data" data={structuredData} />
         <SectionReveal>
-          <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Booking</p>
-          <h1 className="mt-2 font-display text-3xl font-semibold sm:text-4xl">Share your trip details and confirm in one step</h1>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-zinc-600 sm:text-base sm:leading-8">This booking form is built for lead capture and immediate WhatsApp continuation so customers do not drop off before a confirmation conversation starts.</p>
-        </SectionReveal>
-        <div className="mt-10">
           <BookingForm />
-        </div>
+        </SectionReveal>
       </Container>
     </section>
   );

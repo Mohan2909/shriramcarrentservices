@@ -51,16 +51,16 @@ export function UserCityBanner() {
   }, []);
 
   return (
-    <div className="inline-flex max-w-full items-center gap-3 rounded-[1.35rem] border border-white/50 bg-white/85 px-4 py-3 text-ink shadow-soft backdrop-blur sm:px-5">
+    <div className="row-scroll inline-flex max-w-full items-center gap-3 rounded-[1.35rem] border border-white/50 bg-white/85 px-4 py-3 text-ink shadow-soft backdrop-blur sm:px-5">
       <div className="flex min-w-0 items-center gap-2 text-sm font-semibold">
         <MapPin className="h-4 w-4 shrink-0 text-brand-500" />
-        <span className="truncate">Cab Service in {city}</span>
+        <span className="whitespace-nowrap">Cab Service in {city}</span>
       </div>
 
       {matchedLocation ? (
         <Link
           href={`/${matchedLocation.route}`}
-          className="inline-flex shrink-0 items-center justify-center rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white transition hover:bg-zinc-800"
+          className="inline-flex shrink-0 items-center justify-center rounded-full bg-ink px-4 py-2 text-sm font-semibold whitespace-nowrap text-white transition hover:bg-zinc-800"
         >
           View rides in {matchedLocation.name}
         </Link>

@@ -1,10 +1,34 @@
 export const SITE_NAME = "Shriram Tour & Travels";
 export const SITE_TAGLINE = "Premium cab service across Pune and nearby locations";
+export const SITE_OWNER = "Pravin Arvind Masne";
 export const SITE_DESCRIPTION =
   "Book reliable cab service in Pune with Shriram Tour & Travels for airport transfers, outstation rides, one-way trips, and corporate travel.";
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://shriram-tour-travels.vercel.app";
 
-function normalizePhoneNumber(value: string) {
+function normalizeSiteUrl(value: string | undefined) {
+  const fallbackUrl = "https://shriram-tour-travels.vercel.app";
+
+  if (!value) {
+    return fallbackUrl;
+  }
+
+  const trimmedValue = value.trim();
+
+  if (!trimmedValue) {
+    return fallbackUrl;
+  }
+
+  const withProtocol = /^https?:\/\//i.test(trimmedValue) ? trimmedValue : `https://${trimmedValue}`;
+
+  return withProtocol.replace(/\/$/, "");
+}
+
+export const SITE_URL = normalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL);
+
+function normalizePhoneNumber(value: string | undefined) {
+  if (!value) {
+    return "";
+  }
+
   const digits = value.replace(/\D/g, "");
 
   if (digits.length === 10) {
@@ -18,13 +42,20 @@ function normalizePhoneNumber(value: string) {
   return digits;
 }
 
-const defaultPhoneDisplay = process.env.NEXT_PUBLIC_BOOKING_PHONE_DISPLAY || "072192 10425";
+const defaultPrimaryPhoneDisplay = process.env.NEXT_PUBLIC_BOOKING_PHONE_DISPLAY || "7219210425";
+const defaultSecondaryPhoneDisplay = process.env.NEXT_PUBLIC_BOOKING_SECONDARY_PHONE_DISPLAY || "8407929993";
+const defaultEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "shriramcarrentalservices@gmail.com";
 
 export const contactDetails = {
   address: "Wakad, Datta Mandir Road, Pune, Maharashtra, India",
-  phoneDisplay: defaultPhoneDisplay,
-  phoneRaw: normalizePhoneNumber(process.env.NEXT_PUBLIC_BOOKING_PHONE_RAW || defaultPhoneDisplay),
-  whatsappRaw: normalizePhoneNumber(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || defaultPhoneDisplay),
+  ownerName: SITE_OWNER,
+  email: defaultEmail,
+  phoneDisplay: defaultPrimaryPhoneDisplay,
+  phoneRaw: normalizePhoneNumber(process.env.NEXT_PUBLIC_BOOKING_PHONE_RAW || defaultPrimaryPhoneDisplay),
+  secondaryPhoneDisplay: defaultSecondaryPhoneDisplay,
+  secondaryPhoneRaw: normalizePhoneNumber(process.env.NEXT_PUBLIC_BOOKING_SECONDARY_PHONE_RAW || defaultSecondaryPhoneDisplay),
+  whatsappDisplay: defaultSecondaryPhoneDisplay,
+  whatsappRaw: normalizePhoneNumber(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || defaultSecondaryPhoneDisplay),
 };
 
 export const fleet = [

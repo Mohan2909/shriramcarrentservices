@@ -3,13 +3,15 @@ import Link from "next/link";
 import { ArrowUpRight, Clock3, Landmark, MapPinned, Plane, Route } from "lucide-react";
 
 import { Container } from "@/components/container";
+import { GalleryExperience } from "@/components/gallery-experience";
 import { GoogleMap } from "@/components/google-map";
 import { SectionReveal } from "@/components/section-reveal";
 import { StructuredData } from "@/components/structured-data";
 import { UserCityBanner } from "@/components/user-city-banner";
 import { fleet, homeContent, homeFaqs, popularRoutes, services, testimonials, SITE_NAME, SITE_URL } from "@/data/site";
+import { getGalleryImages } from "@/lib/gallery";
 import { buildAbsoluteUrl, buildMetadata } from "@/lib/metadata";
-import { buildAreaServed } from "@/lib/structured-data";
+import { buildAreaServed, buildDefaultServiceAreas } from "@/lib/structured-data";
 
 export const metadata = buildMetadata({
   title: "Cab Service in Pune | Shriram Tour & Travels",
@@ -18,7 +20,13 @@ export const metadata = buildMetadata({
   keywords: ["cab service in pune", "best cab service in pune", "taxi in pune", "airport cab pune"],
 });
 
-export default function HomePage() {
+export default async function HomePage() {
+  const galleryImages = (await getGalleryImages()).slice(0, 8);
+  const galleryPreviewItems = galleryImages.map((image) => ({
+    ...image,
+    type: "image" as const,
+  }));
+
   const homeStructuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -42,7 +50,7 @@ export default function HomePage() {
         provider: {
           "@id": `${SITE_URL}/#business`,
         },
-        areaServed: buildAreaServed(["Pune", "Wakad", "Hinjewadi", "Baner", "Kharadi"]),
+        areaServed: buildDefaultServiceAreas(),
         url: SITE_URL,
         image: buildAbsoluteUrl("/opengraph-image"),
         hasOfferCatalog: {
@@ -313,6 +321,48 @@ export default function HomePage() {
               </SectionReveal>
             ))}
           </div>
+        </Container>
+      </section>
+
+      <section className="py-16 sm:py-20">
+        <Container>
+          <SectionReveal className="overflow-hidden rounded-[2.2rem] border border-zinc-200 bg-white shadow-soft">
+            <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+              <div>
+                <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Gallery</p>
+                <h2 className="mt-2 max-w-2xl font-display text-2xl font-semibold sm:text-3xl">See the cars, ride moments, and real travel setup behind the bookings</h2>
+                <p className="mt-4 max-w-3xl text-sm leading-7 text-zinc-600 sm:text-base sm:leading-8">
+                  A visual look at actual vehicles, customer-ready interiors, and on-road service moments from Pune bookings, airport drops, and outstation travel.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3 text-center">
+                <div className="rounded-[1.4rem] bg-brand-50 px-4 py-4">
+                  <p className="font-display text-2xl font-semibold text-brand-700">{galleryImages.length}+</p>
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Preview shots</p>
+                </div>
+                <div className="rounded-[1.4rem] bg-zinc-100 px-4 py-4">
+                  <p className="font-display text-2xl font-semibold text-zinc-900">Pune</p>
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Core market</p>
+                </div>
+                <div className="rounded-[1.4rem] bg-accent-300/25 px-4 py-4">
+                  <p className="font-display text-2xl font-semibold text-zinc-900">24/7</p>
+                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">Trip support</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 border-t border-zinc-200 bg-zinc-50/80 px-6 py-4 sm:px-8">
+              <p className="text-sm text-zinc-600">Open the full gallery to browse all available service photos.</p>
+              <Link href="/gallery" className="inline-flex shrink-0 items-center rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800">
+                View Full Gallery
+              </Link>
+            </div>
+          </SectionReveal>
+
+          <SectionReveal delay={0.08} className="mt-8">
+            <GalleryExperience items={galleryPreviewItems} />
+          </SectionReveal>
         </Container>
       </section>
 

@@ -34,10 +34,15 @@ export function generateMetadata({ params }: LocationPageProps) {
   }
 
   return buildMetadata({
-    title: `Cab Service in ${location.name} | Shriram Travels`,
-    description: `Book cab service in ${location.name} with Shriram Travels for airport transfers, local rides, outstation trips, and corporate travel.`,
+    title: `Cab Service in ${location.name} | Shriram Tour & Travels`,
+    description: `Book cab service in ${location.name} with Shriram Tour & Travels for airport transfers, local rides, outstation trips, and corporate travel.`,
     path: `/${location.route}`,
-    keywords: [`cab service in ${location.name.toLowerCase()}`, `taxi in ${location.name.toLowerCase()}`, `${location.name.toLowerCase()} airport cab`],
+    keywords: [
+      `cab service in ${location.name.toLowerCase()}`,
+      `taxi in ${location.name.toLowerCase()}`,
+      `${location.name.toLowerCase()} airport cab`,
+      `pune cab service ${location.name.toLowerCase()}`,
+    ],
   });
 }
 

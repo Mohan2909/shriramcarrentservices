@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/data/site";
+import { locations, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/data/site";
 
 type MetadataArgs = {
   title: string;
@@ -11,6 +11,23 @@ type MetadataArgs = {
 
 export const SHARE_IMAGE_PATH = "/opengraph-image";
 
+const defaultKeywordSet = [
+  "cab service in pune",
+  "taxi service in pune",
+  "airport cab pune",
+  "outstation cab pune",
+  "pune airport taxi",
+  "local cab service pune",
+  ...locations.flatMap((location) => [
+    `cab service in ${location.name.toLowerCase()}`,
+    `taxi service in ${location.name.toLowerCase()}`,
+  ]),
+];
+
+function mergeKeywords(keywords: string[]) {
+  return Array.from(new Set([...defaultKeywordSet, ...keywords.map((keyword) => keyword.toLowerCase())]));
+}
+
 export function buildAbsoluteUrl(path: string) {
   return new URL(path, SITE_URL).toString();
 }
@@ -18,11 +35,12 @@ export function buildAbsoluteUrl(path: string) {
 export function buildMetadata({ title, description, path, keywords = [] }: MetadataArgs): Metadata {
   const url = buildAbsoluteUrl(path);
   const shareImage = buildAbsoluteUrl(SHARE_IMAGE_PATH);
+  const mergedKeywords = mergeKeywords(keywords);
 
   return {
     title,
     description,
-    keywords,
+    keywords: mergedKeywords,
     applicationName: SITE_NAME,
     metadataBase: new URL(SITE_URL),
     referrer: "origin-when-cross-origin",
@@ -74,7 +92,7 @@ export function buildMetadata({ title, description, path, keywords = [] }: Metad
     },
     other: {
       "geo.region": "IN-MH",
-      "geo.placename": "Pune",
+      "geo.placename": "Pune, Wakad, Hinjewadi, Baner, Kharadi, Pimpri Chinchwad",
     },
   };
 }
@@ -83,10 +101,5 @@ export const defaultMetadata: Metadata = buildMetadata({
   title: "Cab Service in Pune | Shriram Tour & Travels",
   description: SITE_DESCRIPTION,
   path: "/",
-  keywords: [
-    "cab service in pune",
-    "taxi service in pune",
-    "airport cab pune",
-    "outstation cab pune",
-  ],
+  keywords: [],
 });

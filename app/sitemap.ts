@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const publishedAt = new Date("2026-04-06T00:00:00.000Z");
   const staticRoutes = [
     { route: "", priority: 1, changeFrequency: "weekly" as const },
+    { route: "/gallery", priority: 0.82, changeFrequency: "weekly" as const },
     { route: "/fleet", priority: 0.84, changeFrequency: "weekly" as const },
     { route: "/services", priority: 0.88, changeFrequency: "weekly" as const },
     { route: "/booking", priority: 0.92, changeFrequency: "daily" as const },

@@ -1,0 +1,9 @@
+{
+  "name": "Shriram Tour & Travels",
+  "short_name": "Shriram Travels",
+  "description": "Book reliable cab service in Pune with Shriram Tour & Travels for airport transfers, outstation rides, one-way trips, and corporate travel.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff7ed",
+  "theme_color": "#f97316"
+}

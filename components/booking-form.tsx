@@ -98,7 +98,7 @@ export function BookingForm() {
         <div className="mt-6 space-y-4 text-sm leading-7 text-zinc-300">
           <p>Share your trip details once and continue the conversation directly on WhatsApp for quick driver confirmation.</p>
           <p>Use this form for airport transfers, local city rides, one-way intercity travel, round trips, and corporate bookings.</p>
-          <p>Default contact details are configurable through environment variables if you want to replace the placeholder phone and WhatsApp number before deployment.</p>
+          <p>Booking confirmations are routed directly to the client WhatsApp number for faster response from the team.</p>
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import { FloatingActions } from "@/components/floating-actions";
 import { StructuredData } from "@/components/structured-data";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteNavbar } from "@/components/site-navbar";
-import { contactDetails, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/data/site";
+import { contactDetails, SITE_DESCRIPTION, SITE_NAME, SITE_OWNER, SITE_URL } from "@/data/site";
 import { buildAbsoluteUrl, defaultMetadata } from "@/lib/metadata";
 import { buildDefaultServiceAreas, buildPrimaryNavigationStructuredData } from "@/lib/structured-data";
 
@@ -33,6 +33,8 @@ const globalStructuredData = {
       url: SITE_URL,
       description: SITE_DESCRIPTION,
       areaServed: buildDefaultServiceAreas(),
+      founder: SITE_OWNER,
+      ...(contactDetails.email ? { email: contactDetails.email } : {}),
       ...(contactDetails.phoneDisplay
         ? {
             telephone: contactDetails.phoneDisplay,
@@ -41,6 +43,13 @@ const globalStructuredData = {
                 "@type": "ContactPoint",
                 telephone: contactDetails.phoneDisplay,
                 contactType: "customer service",
+                areaServed: "IN",
+                availableLanguage: ["en", "hi", "mr"],
+              },
+              {
+                "@type": "ContactPoint",
+                telephone: contactDetails.secondaryPhoneDisplay,
+                contactType: "reservations",
                 areaServed: "IN",
                 availableLanguage: ["en", "hi", "mr"],
               },
@@ -56,7 +65,7 @@ const globalStructuredData = {
       description: SITE_DESCRIPTION,
       image: buildAbsoluteUrl("/opengraph-image"),
       areaServed: buildDefaultServiceAreas(),
-      serviceArea: ["Pune", "Wakad", "Hinjewadi", "Baner", "Kharadi"],
+      serviceArea: buildDefaultServiceAreas(),
       address: {
         "@type": "PostalAddress",
         streetAddress: "Wakad, Datta Mandir Road",
@@ -65,6 +74,7 @@ const globalStructuredData = {
         addressCountry: "India",
       },
       ...(contactDetails.phoneDisplay ? { telephone: contactDetails.phoneDisplay } : {}),
+      ...(contactDetails.email ? { email: contactDetails.email } : {}),
       parentOrganization: {
         "@id": `${SITE_URL}/#organization`,
       },

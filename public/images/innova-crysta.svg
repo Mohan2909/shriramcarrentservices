@@ -1,0 +1,8 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="360" rx="36" fill="#FFF7ED"/>
+  <path d="M94 220H546C557.046 220 566 228.954 566 240V248C566 259.046 557.046 268 546 268H94C82.9543 268 74 259.046 74 248V240C74 228.954 82.9543 220 94 220Z" fill="#C2410C"/>
+  <path d="M144 156C158 138 178 128 200 128H430C456 128 480 142 496 164L516 210H130L144 156Z" fill="#FDBA74"/>
+  <circle cx="180" cy="268" r="30" fill="#27272A"/><circle cx="470" cy="268" r="30" fill="#27272A"/>
+  <rect x="210" y="144" width="74" height="50" rx="10" fill="#FEF3C7"/><rect x="290" y="144" width="78" height="50" rx="10" fill="#FEF3C7"/><rect x="374" y="144" width="68" height="50" rx="10" fill="#FEF3C7"/>
+  <text x="320" y="82" text-anchor="middle" fill="#18181B" font-family="Arial, sans-serif" font-size="34" font-weight="700">Innova Crysta</text>
+</svg>

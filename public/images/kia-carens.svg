@@ -1,0 +1,8 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="360" rx="36" fill="#FFF7ED"/>
+  <path d="M102 220H538C549.046 220 558 228.954 558 240V248C558 259.046 549.046 268 538 268H102C90.9543 268 82 259.046 82 248V240C82 228.954 90.9543 220 102 220Z" fill="#EA580C"/>
+  <path d="M158 158C170 142 188 132 208 132H418C442 132 464 145 478 166L498 210H144L158 158Z" fill="#FED7AA"/>
+  <circle cx="184" cy="268" r="30" fill="#27272A"/><circle cx="462" cy="268" r="30" fill="#27272A"/>
+  <rect x="216" y="146" width="72" height="48" rx="10" fill="#FEF3C7"/><rect x="294" y="146" width="74" height="48" rx="10" fill="#FEF3C7"/><rect x="374" y="146" width="64" height="48" rx="10" fill="#FEF3C7"/>
+  <text x="320" y="82" text-anchor="middle" fill="#18181B" font-family="Arial, sans-serif" font-size="34" font-weight="700">Kia Carens</text>
+</svg>

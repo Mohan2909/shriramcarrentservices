@@ -1,0 +1,8 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="360" rx="36" fill="#FFF7ED"/>
+  <path d="M120 220H520C532.15 220 542 229.85 542 242V246C542 258.15 532.15 268 520 268H120C107.85 268 98 258.15 98 246V242C98 229.85 107.85 220 120 220Z" fill="#F97316"/>
+  <path d="M190 164C197.06 148.86 211.96 139.17 228.66 139H386.28C406.04 139 424.09 150.18 433 168L455 212H160L190 164Z" fill="#FDBA74"/>
+  <circle cx="192" cy="268" r="30" fill="#27272A"/><circle cx="448" cy="268" r="30" fill="#27272A"/>
+  <rect x="234" y="152" width="74" height="45" rx="10" fill="#FEF3C7"/><rect x="316" y="152" width="82" height="45" rx="10" fill="#FEF3C7"/>
+  <text x="320" y="82" text-anchor="middle" fill="#18181B" font-family="Arial, sans-serif" font-size="34" font-weight="700">Swift Dzire</text>
+</svg>

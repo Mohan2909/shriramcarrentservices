@@ -1,0 +1,8 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="360" rx="36" fill="#FFF7ED"/>
+  <path d="M106 220H534C545.046 220 554 228.954 554 240V248C554 259.046 545.046 268 534 268H106C94.9543 268 86 259.046 86 248V240C86 228.954 94.9543 220 106 220Z" fill="#F97316"/>
+  <path d="M165 160C176 144 193 136 212 136H408C430 136 450 147 462 166L488 210H150L165 160Z" fill="#FDBA74"/>
+  <circle cx="186" cy="268" r="30" fill="#27272A"/><circle cx="456" cy="268" r="30" fill="#27272A"/>
+  <rect x="218" y="150" width="70" height="46" rx="10" fill="#FEF3C7"/><rect x="294" y="150" width="72" height="46" rx="10" fill="#FEF3C7"/><rect x="372" y="150" width="60" height="46" rx="10" fill="#FEF3C7"/>
+  <text x="320" y="82" text-anchor="middle" fill="#18181B" font-family="Arial, sans-serif" font-size="34" font-weight="700">Ertiga</text>
+</svg>

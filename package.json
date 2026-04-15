@@ -1,7 +1,7 @@
 {
   "name": "shriram-tour-travels",
   "version": "0.1.0",
-  "description": "Search-ready cab booking website for Shriram Tour & Travels.",
+  "description": "Search-ready cab booking website for Shriram Tour And Travel, Cab Service.",
   "scripts": {
     "dev": "next dev",
     "dev:clean": "rm -rf .next && next dev",
@@ -35,7 +35,7 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.35",
     "postcss": "^8.5.8",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^3.4.19",
     "typescript": "^5.4.5"
   }
 }

@@ -11,13 +11,13 @@ export function getLocationH1(location: LocationEntry) {
 
 /** SEO title — used in generateMetadata */
 export function getLocationSeoTitle(location: LocationEntry) {
-  return `Cab Service in ${location.name} | Car Rental Pune | Shriram Tour & Travels`;
+  return `Cab Service in ${location.name} | Car Rental Pune | Shriram Tour And Travel, Cab Service`;
 }
 
 /** Meta description — used in generateMetadata */
 export function getLocationMetaDescription(location: LocationEntry) {
   const areaType = location.areaType ? ` ${location.areaType}` : "";
-  return `Looking for cab service near me in ${location.name}? Shriram Tour & Travels covers this${areaType} with airport transfers, outstation cabs, and local rides. Book on WhatsApp — available 24/7.`;
+  return `Looking for cab service near me in ${location.name}? Shriram Tour And Travel, Cab Service covers this${areaType} with airport transfers, outstation cabs, and local rides. Book on WhatsApp — available 24/7.`;
 }
 
 /** H2 section headings with location-specific copy */
@@ -28,7 +28,7 @@ export function getLocationSections(location: LocationEntry) {
   return [
     {
       heading: `Cab Service in ${location.name} — Local, Airport & Outstation`,
-      body: `Shriram Tour & Travels provides reliable cab service in ${location.name} for airport pickups, business meetings, family outings, weekend trips, and daily intercity travel. If you are searching for a cab near me in ${location.name}, our team is available 24/7 with clean vehicles, verified drivers, and instant WhatsApp confirmation. We handle one-way rides, round trips, local city drops, and outstation journeys across Maharashtra — all from this ${areaType}.`,
+      body: `Shriram Tour And Travel, Cab Service provides reliable cab service in ${location.name} for airport pickups, business meetings, family outings, weekend trips, and daily intercity travel. If you are searching for a cab near me in ${location.name}, our team is available 24/7 with clean vehicles, verified drivers, and instant WhatsApp confirmation. We handle one-way rides, round trips, local city drops, and outstation journeys across Maharashtra — all from this ${areaType}.`,
     },
     {
       heading: `Car Rental in ${location.name} — Sedan, SUV & MPV Options`,
@@ -56,7 +56,7 @@ export function getLocationFaqs(location: LocationEntry) {
   return [
     {
       question: `Do you offer cab service near me in ${location.name}?`,
-      answer: `Yes. Shriram Tour & Travels provides cab service in ${location.name} and nearby areas including ${nearby}. You can book via WhatsApp or the online form for same-day and advance trips.`,
+      answer: `Yes. Shriram Tour And Travel, Cab Service provides cab service in ${location.name} and nearby areas including ${nearby}. You can book via WhatsApp or the online form for same-day and advance trips.`,
     },
     {
       question: `Do you offer airport transfers from ${location.name}?`,

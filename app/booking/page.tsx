@@ -7,7 +7,7 @@ import { buildMetadata } from "@/lib/metadata";
 import { buildBreadcrumbStructuredData } from "@/lib/structured-data";
 
 export const metadata = buildMetadata({
-  title: "Book a Cab | Shriram Tour & Travels",
+  title: "Book a Cab | Shriram Tour And Travel, Cab Service",
   description: "Submit your booking details and continue on WhatsApp for instant cab confirmation in Pune.",
   path: "/booking",
   keywords: ["book cab pune", "cab booking pune", "taxi booking wakad"],

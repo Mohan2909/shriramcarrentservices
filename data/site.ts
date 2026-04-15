@@ -1,8 +1,8 @@
-export const SITE_NAME = "Shriram Tour & Travels";
+export const SITE_NAME = "Shriram Tour And Travel, Cab Service";
 export const SITE_TAGLINE = "Premium cab service across Pune and nearby locations";
 export const SITE_OWNER = "Pravin Arvind Masne";
 export const SITE_DESCRIPTION =
-  "Book reliable cab service in Pune with Shriram Tour & Travels for airport transfers, outstation rides, one-way trips, and corporate travel.";
+  "Book reliable cab service in Pune with Shriram Tour And Travel, Cab Service for airport transfers, outstation rides, one-way trips, and corporate travel.";
 
 function normalizeSiteUrl(value: string | undefined) {
   const fallbackUrl = "https://shriram-tour-travels.vercel.app";
@@ -58,38 +58,62 @@ export const contactDetails = {
   whatsappRaw: normalizePhoneNumber(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || defaultSecondaryPhoneDisplay),
 };
 
-export const fleet = [
+type FleetEntry = {
+  name: string;
+  seats: string;
+  image: string;
+  blurb: string;
+  details?: string[];
+};
+
+export const fleet: FleetEntry[] = [
   {
     name: "Swift Dzire",
     seats: "4 seater",
-    image: "/images/swift-dzire.svg",
+    image: "/images/dezire.jpg",
     blurb: "Compact sedan for local rides, airport transfers, and affordable outstation trips.",
+    details: ["Starting from ₹11 / km"],
   },
   {
     name: "Hyundai Aura",
     seats: "4 seater",
-    image: "/images/hyundai-aura.svg",
+    image: "/images/aura.avif",
     blurb: "Balanced comfort and efficiency for city travel and executive pickup schedules.",
+    details: ["Starting from ₹11 / km"],
   },
   {
     name: "Ertiga",
     seats: "6-7 seater",
-    image: "/images/ertiga.svg",
+    image: "/images/ertiga.jpg",
     blurb: "Spacious choice for families, station pickups, and weekend group travel.",
+    details: ["Starting from ₹14 / km"],
+  },
+  {
+    name: "Bus",
+    seats: "17-45 seater",
+    image: "/images/urbania.jpg",
+    blurb: "Comfortable bus travel for larger groups, pilgrimages, and long-distance journeys.",
+    details: [
+      "Starting from ₹22/km (Non-AC), ₹28/km (AC)",
+      "17, 20, 25, 32, 45 Seater available",
+      "Pushback seats with AC and Non-AC options",
+    ],
   },
   {
     name: "Kia Carens",
     seats: "6-7 seater",
-    image: "/images/kia-carens.svg",
+    image: "/images/kia.avif",
     blurb: "Premium MPV ride quality for longer routes and polished airport transfers.",
+    details: ["Starting from ₹14 / km"],
   },
   {
     name: "Innova Crysta",
     seats: "7-8 seater",
-    image: "/images/innova-crysta.svg",
+    image: "/images/innova.avif",
     blurb: "Flagship option for corporate mobility, group bookings, and comfort-first outstation rides.",
+    details: ["Starting from ₹14 / km"],
   },
-] as const;
+];
 
 export const services = [
   {
@@ -115,8 +139,11 @@ export const popularRoutes = [
   "Pune to Shirdi",
   "Pune to Nashik",
   "Pune to Kolhapur",
+  "Mumbai Airport",
+  "Mumbai Darshan",
   "Wakad to Pune Airport",
-  "Hinjewadi to Pune Airport",
+  "Pune Local 4 Seater",
+  "Pune Local 7 Seater",
 ];
 
 export const testimonials = [
@@ -143,6 +170,11 @@ export type LocationEntry = {
   geo?: { lat: number; lng: number };
   /** Short descriptor used in meta descriptions and H2 copy */
   areaType?: string;
+};
+
+export type FooterLocationGroup = {
+  title: string;
+  locations: LocationEntry[];
 };
 
 export const locations: LocationEntry[] = [
@@ -183,8 +215,46 @@ export const locations: LocationEntry[] = [
   { name: "Manjri", route: "cab-service-manjri", nearby: ["Hadapsar", "Kharadi", "Wagholi"], mapQuery: "Manjri Pune Maharashtra India", geo: { lat: 18.5100, lng: 73.9600 }, areaType: "east Pune locality" },
 ];
 
+const footerLocationGroupRoutes = [
+  {
+    title: "Pune Locations",
+    routes: [
+      "cab-service-pune",
+      "cab-service-baner",
+      "cab-service-aundh",
+      "cab-service-kothrud",
+      "cab-service-bavdhan",
+      "cab-service-hadapsar",
+      "cab-service-magarpatta",
+      "cab-service-viman-nagar",
+      "cab-service-kharadi",
+    ],
+  },
+  {
+    title: "PCMC Locations",
+    routes: [
+      "cab-service-wakad",
+      "cab-service-pimpri",
+      "cab-service-chinchwad",
+      "cab-service-nigdi",
+      "cab-service-ravet",
+      "cab-service-pimple-saudagar",
+      "cab-service-dehu-road",
+      "cab-service-akurdi",
+      "cab-service-bhosari",
+    ],
+  },
+] as const;
+
+export const footerLocationGroups: FooterLocationGroup[] = footerLocationGroupRoutes.map((group) => ({
+  title: group.title,
+  locations: group.routes
+    .map((route) => locations.find((location) => location.route === route))
+    .filter((location): location is LocationEntry => Boolean(location)),
+}));
+
 export const homeContent = [
-  "Shriram Tour & Travels offers dependable cab service in Pune for airport transfers, local rides, business travel, family pickups, and outstation trips. Customers in Pune, Wakad, Hinjewadi, Baner, Kharadi, and nearby areas can book quickly with clear calls to action and fast WhatsApp support.",
+  "Shriram Tour And Travel, Cab Service offers dependable cab service in Pune for airport transfers, local rides, business travel, family pickups, and outstation trips. Customers in Pune, Wakad, Hinjewadi, Baner, Kharadi, and nearby areas can book quickly with clear calls to action and fast WhatsApp support.",
   "Our fleet includes Swift Dzire, Hyundai Aura, Ertiga, Kia Carens, and Innova Crysta to suit solo travelers, families, and corporate groups. We focus on clean cars, on-time arrivals, comfortable travel, and a simple mobile-friendly booking experience.",
   "Dedicated area pages, route-specific copy, strong internal links, and mobile-first booking paths help travelers land on the right page faster and move toward direct enquiries without friction."
 ];

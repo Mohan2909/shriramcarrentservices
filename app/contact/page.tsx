@@ -7,8 +7,8 @@ import { buildMetadata } from "@/lib/metadata";
 import { buildBreadcrumbStructuredData } from "@/lib/structured-data";
 
 export const metadata = buildMetadata({
-  title: "Contact | Shriram Tour & Travels",
-  description: "Contact Shriram Tour & Travels in Wakad, Pune for cab booking, airport transfer, and outstation travel enquiries.",
+  title: "Contact | Shriram Tour And Travel, Cab Service",
+  description: "Contact Shriram Tour And Travel, Cab Service in Wakad, Pune for cab booking, airport transfer, and outstation travel enquiries.",
   path: "/contact",
   keywords: ["contact cab service pune", "wakad cab booking", "pune taxi contact", "cab contact number pune", "taxi service contact wakad"],
 });
@@ -58,27 +58,27 @@ export default function ContactPage() {
                   <p>{contactDetails.address}</p>
                 </div>
                 {/* Contact rows — always label + value side by side */}
-                <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
+                <div className="row-inline items-center justify-between gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
                   <h2 className="font-semibold text-zinc-900">Phone</h2>
-                  <a href={`tel:+${contactDetails.phoneRaw}`} className="text-sm transition hover:text-brand-600">{contactDetails.phoneDisplay}</a>
+                  <a href={`tel:+${contactDetails.phoneRaw}`} className="whitespace-nowrap text-sm transition hover:text-brand-600">{contactDetails.phoneDisplay}</a>
                 </div>
-                <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
+                <div className="row-inline items-center justify-between gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
                   <h2 className="font-semibold text-zinc-900">Alternate Phone</h2>
-                  <a href={`tel:+${contactDetails.secondaryPhoneRaw}`} className="text-sm transition hover:text-brand-600">{contactDetails.secondaryPhoneDisplay}</a>
+                  <a href={`tel:+${contactDetails.secondaryPhoneRaw}`} className="whitespace-nowrap text-sm transition hover:text-brand-600">{contactDetails.secondaryPhoneDisplay}</a>
                 </div>
-                <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
+                <div className="row-inline items-center justify-between gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
                   <h2 className="font-semibold text-zinc-900">WhatsApp</h2>
-                  <a href={`https://wa.me/${contactDetails.whatsappRaw}`} target="_blank" rel="noreferrer" className="text-sm transition hover:text-brand-600">Start WhatsApp Chat</a>
+                  <a href={`https://wa.me/${contactDetails.whatsappRaw}`} target="_blank" rel="noreferrer" className="whitespace-nowrap text-sm transition hover:text-brand-600">Start WhatsApp Chat</a>
                 </div>
-                <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
+                <div className="row-inline items-center justify-between gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
                   <h2 className="font-semibold text-zinc-900">Email</h2>
-                  <a href={`mailto:${contactDetails.email}`} className="break-all text-sm transition hover:text-brand-600">{contactDetails.email}</a>
+                  <a href={`mailto:${contactDetails.email}`} className="whitespace-nowrap text-sm transition hover:text-brand-600">{contactDetails.email}</a>
                 </div>
               </div>
             </SectionReveal>
 
             <SectionReveal delay={0.08}>
-              <GoogleMap query={contactDetails.address} title="Shriram Tour & Travels address map" />
+              <GoogleMap query={contactDetails.address} title="Shriram Tour And Travel, Cab Service address map" />
             </SectionReveal>
 
         </div>

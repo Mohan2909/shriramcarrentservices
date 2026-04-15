@@ -27,15 +27,15 @@ export function generateMetadata({ params }: LocationPageProps) {
 
   if (!location) {
     return buildMetadata({
-      title: "Page Not Found | Shriram Tour & Travels",
+      title: "Page Not Found | Shriram Tour And Travel, Cab Service",
       description: "Location page not found.",
       path: "/",
     });
   }
 
   return buildMetadata({
-    title: `Cab Service in ${location.name} | Shriram Tour & Travels`,
-    description: `Book cab service in ${location.name} with Shriram Tour & Travels for airport transfers, local rides, outstation trips, and corporate travel.`,
+    title: `Cab Service in ${location.name} | Shriram Tour And Travel, Cab Service`,
+    description: `Book cab service in ${location.name} with Shriram Tour And Travel, Cab Service for airport transfers, local rides, outstation trips, and corporate travel.`,
     path: `/${location.route}`,
     keywords: [
       `cab service in ${location.name.toLowerCase()}`,

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Play, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -9,9 +10,11 @@ import type { GalleryItem } from "@/lib/gallery";
 
 type GalleryExperienceProps = {
   items: GalleryItem[];
+  mode?: "page" | "dashboard";
 };
 
-export function GalleryExperience({ items }: GalleryExperienceProps) {
+export function GalleryExperience({ items, mode = "page" }: GalleryExperienceProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const railRef = useRef<HTMLDivElement | null>(null);
 
@@ -24,11 +27,22 @@ export function GalleryExperience({ items }: GalleryExperienceProps) {
 
   const openItem = useCallback(
     (index: number) => {
+      setCurrentIndex(index);
       setActiveIndex(index);
       scrollToIndex(index);
     },
     [scrollToIndex],
   );
+
+  const moveGalleryToPrevious = useCallback(() => {
+    if (!items.length) return;
+    setCurrentIndex((current) => (current - 1 + items.length) % items.length);
+  }, [items.length]);
+
+  const moveGalleryToNext = useCallback(() => {
+    if (!items.length) return;
+    setCurrentIndex((current) => (current + 1) % items.length);
+  }, [items.length]);
 
   const moveToPrevious = useCallback(() => {
     setActiveIndex((current) => {
@@ -60,17 +74,23 @@ export function GalleryExperience({ items }: GalleryExperienceProps) {
   }, [activeIndex, moveToNext, moveToPrevious]);
 
   const activeItem = activeIndex === null ? null : items[activeIndex];
+  const safeCurrentIndex = items.length ? currentIndex % items.length : 0;
+  const secondaryIndex = items.length > 1 ? (safeCurrentIndex + 1) % items.length : safeCurrentIndex;
+  const secondaryItem = items[secondaryIndex];
+  const isDashboard = mode === "dashboard";
+
+  if (!items.length) {
+    return null;
+  }
 
   return (
     <>
-      <div className="rounded-[2rem] border border-zinc-200 bg-white p-4 shadow-soft sm:p-5">
-
-        {/* Desktop prev/next controls */}
-        <div className="flex justify-end gap-2">
+      <div className="rounded-[1.9rem] border border-zinc-200 bg-white p-4 shadow-soft sm:p-5">
+        <div className="flex items-center justify-end gap-2">
           <div className="hidden items-center gap-2 md:flex">
             <button
               type="button"
-              onClick={() => railRef.current?.scrollBy({ left: -520, behavior: "smooth" })}
+              onClick={moveGalleryToPrevious}
               className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-700 transition hover:border-brand-300 hover:text-brand-600"
               aria-label="Scroll gallery left"
             >
@@ -78,7 +98,7 @@ export function GalleryExperience({ items }: GalleryExperienceProps) {
             </button>
             <button
               type="button"
-              onClick={() => railRef.current?.scrollBy({ left: 520, behavior: "smooth" })}
+              onClick={moveGalleryToNext}
               className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-700 transition hover:border-brand-300 hover:text-brand-600"
               aria-label="Scroll gallery right"
             >
@@ -87,59 +107,102 @@ export function GalleryExperience({ items }: GalleryExperienceProps) {
           </div>
         </div>
 
-        {/* Main image rail — horizontal scroll, snap, touch-optimised */}
-        <div
-          ref={railRef}
-          className="no-scrollbar mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2"
-          style={{ WebkitOverflowScrolling: "touch", overscrollBehaviorX: "contain" } as React.CSSProperties}
-        >
-          {items.map((item, index) => (
-            <motion.button
-              key={item.id}
-              data-gallery-card={index}
+        <div className={`mt-4 grid gap-3 ${isDashboard ? "lg:grid-cols-[minmax(0,1.45fr)_minmax(0,0.95fr)]" : "lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.9fr)]"}`}>
+          <motion.div
+            key={items[safeCurrentIndex].id}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.35 }}
+            className="relative overflow-hidden rounded-[1.7rem] border border-zinc-200 bg-zinc-50"
+          >
+            <button
+              data-gallery-card={safeCurrentIndex}
               type="button"
-              onClick={() => openItem(index)}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.45, delay: index * 0.03 }}
-              className="group relative min-w-[82vw] snap-start overflow-hidden rounded-[1.9rem] border border-zinc-200 bg-white text-left shadow-soft sm:min-w-[460px] xl:min-w-[560px]"
+              onClick={() => openItem(safeCurrentIndex)}
+              className="group block w-full text-left"
             >
-              <div className="relative aspect-[16/10] bg-zinc-100">
-                {item.type === "image" ? (
+              <div className="relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/10]">
+                {items[safeCurrentIndex].type === "image" ? (
                   <div className="absolute inset-0 p-3 sm:p-4">
                     <Image
-                      src={item.src}
-                      alt={item.alt}
+                      src={items[safeCurrentIndex].src}
+                      alt={items[safeCurrentIndex].alt}
                       fill
                       className="object-contain"
-                      sizes="(max-width: 768px) 82vw, (max-width: 1280px) 460px, 560px"
+                      sizes="(max-width: 1023px) 100vw, 50vw"
                     />
                   </div>
                 ) : (
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(250,204,21,0.24),transparent_28%),linear-gradient(135deg,#18181b_0%,#27272a_35%,#c2410c_100%)]" />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 flex justify-end p-5 sm:p-6">
-                  <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/12 text-white backdrop-blur">
-                    {item.type === "video" ? <Play className="h-5 w-5 fill-current" /> : <ChevronRight className="h-5 w-5" />}
-                  </span>
-                </div>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              onClick={moveGalleryToPrevious}
+              className="absolute left-4 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-zinc-700 shadow-sm backdrop-blur hover:bg-white md:hidden"
+              aria-label="Previous gallery image"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+
+            <button
+              type="button"
+              onClick={moveGalleryToNext}
+              className="absolute right-4 top-1/2 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-zinc-700 shadow-sm backdrop-blur hover:bg-white md:hidden"
+              aria-label="Next gallery image"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </motion.div>
+
+          {secondaryItem ? (
+            <motion.button
+              key={secondaryItem.id}
+              data-gallery-card={secondaryIndex}
+              type="button"
+              onClick={() => openItem(secondaryIndex)}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.35, delay: 0.05 }}
+              className="group relative hidden overflow-hidden rounded-[1.7rem] border border-zinc-200 bg-zinc-50 text-left lg:block"
+            >
+              <div className="relative aspect-[16/10]">
+                {secondaryItem.type === "image" ? (
+                  <div className="absolute inset-0 p-3 sm:p-4">
+                    <Image
+                      src={secondaryItem.src}
+                      alt={secondaryItem.alt}
+                      fill
+                      className="object-contain"
+                      sizes="34vw"
+                    />
+                  </div>
+                ) : (
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(250,204,21,0.24),transparent_28%),linear-gradient(135deg,#18181b_0%,#27272a_35%,#c2410c_100%)]" />
+                )}
               </div>
             </motion.button>
-          ))}
+          ) : null}
         </div>
 
-        {/* Thumbnail strip — scroll-track adds fade edges, row-scroll handles touch */}
         <div className="scroll-track mt-5">
-          <div className="row-scroll flex gap-3 pb-1">
+          <div
+            ref={railRef}
+            className="row-scroll flex gap-3 overflow-x-auto pb-1"
+            style={{ WebkitOverflowScrolling: "touch", overscrollBehaviorX: "contain" } as React.CSSProperties}
+          >
             {items.map((item, index) => (
               <button
                 key={`${item.id}-thumb`}
                 type="button"
-                onClick={() => openItem(index)}
+                data-gallery-card={index}
+                onClick={() => setCurrentIndex(index)}
                 aria-label={item.alt}
-                className="inline-flex shrink-0 items-center rounded-full border border-zinc-200 bg-zinc-50 p-2 text-left transition hover:border-brand-300 hover:bg-white"
+                className={`inline-flex shrink-0 items-center rounded-full border p-2 text-left transition hover:border-brand-300 hover:bg-white ${safeCurrentIndex === index ? "border-brand-300 bg-white" : "border-zinc-200 bg-zinc-50"}`}
               >
                 <span className="relative h-14 w-14 overflow-hidden rounded-xl bg-white ring-1 ring-zinc-200">
                   {item.type === "image" ? (
@@ -155,9 +218,17 @@ export function GalleryExperience({ items }: GalleryExperienceProps) {
           </div>
         </div>
 
+        {isDashboard ? (
+          <Link
+            href="/gallery"
+            className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-500 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-600 lg:hidden"
+          >
+            Browse Full Gallery <ChevronRight className="h-4 w-4" />
+          </Link>
+        ) : null}
+
       </div>
 
-      {/* Lightbox */}
       <AnimatePresence>
         {activeItem ? (
           <motion.div
@@ -208,7 +279,6 @@ export function GalleryExperience({ items }: GalleryExperienceProps) {
                 )}
               </div>
 
-              {/* Mobile prev/next inside lightbox */}
               <div className="flex items-center justify-end gap-2 border-t border-white/10 px-5 py-4 text-white sm:px-6">
                 <div className="flex items-center gap-2 md:hidden">
                   <button

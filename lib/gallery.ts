@@ -37,7 +37,7 @@ export async function getGalleryImages() {
     .map((entry, index) => ({
       id: `gallery-image-${index + 1}`,
       src: toPublicSrc(entry.name),
-      alt: `Shriram Tour & Travels gallery photo ${index + 1}`,
+      alt: `Shriram Tour And Travel, Cab Service gallery photo ${index + 1}`,
       fileName: entry.name,
     })) satisfies GalleryImage[];
 }
@@ -56,7 +56,7 @@ export async function getGalleryVideo() {
   return {
     id: "gallery-video-1",
     src: toPublicSrc(videoFile.name),
-    alt: "Shriram Tour & Travels service video",
+    alt: "Shriram Tour And Travel, Cab Service service video",
     fileName: videoFile.name,
   } satisfies GalleryVideo;
 }

@@ -8,7 +8,7 @@ import { buildBreadcrumbStructuredData } from "@/lib/structured-data";
 
 export const metadata = buildMetadata({
   title: `Gallery | ${SITE_NAME}`,
-  description: "Browse real cab, ride, and service photos from Shriram Tour & Travels in Pune.",
+  description: "Browse real cab, ride, and service photos from Shriram Tour And Travel, Cab Service in Pune.",
   path: "/gallery",
   keywords: ["cab gallery pune", "taxi photos pune", "shriram tour travels gallery"],
 });

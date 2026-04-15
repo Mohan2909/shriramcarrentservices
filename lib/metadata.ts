@@ -114,7 +114,7 @@ export function buildMetadata({
 }
 
 export const defaultMetadata: Metadata = buildMetadata({
-  title: "Cab Service in Pune | Car Rental Pune | Shriram Tour & Travels",
+  title: "Cab Service in Pune | Car Rental Pune | Shriram Tour And Travel, Cab Service",
   description: SITE_DESCRIPTION,
   path: "/",
   keywords: ["car rental pune", "car rental near me", "cab service pune", "cab near me pune"],

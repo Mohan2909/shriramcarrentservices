@@ -44,7 +44,7 @@ export default async function Icon() {
       >
         <img
           src={logoSrc}
-          alt="Shriram Tour & Travels"
+          alt="Shriram Tour And Travel, Cab Service"
           width="32"
           height="32"
           style={{ objectFit: "contain" }}

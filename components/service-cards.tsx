@@ -42,7 +42,7 @@ const serviceMeta: Record<string, {
   },
   "Airport Transfer": {
     badge: { label: "Most Booked", icon: "⭐" },
-    price: "Airport from ₹799",
+    price: "Airport from ₹2000 local charges",
     features: ["Swift timing for all flights", "Luggage-friendly vehicles", "Pickup in 15 mins"],
     stats: [{ icon: "⚡", label: "Book in 60s" }, { icon: "✅", label: "Pickup in 15 mins" }],
     bookLabel: "Book Airport Cab",
@@ -129,7 +129,7 @@ export function ServiceCards() {
       <h2 className="mt-2 font-display text-2xl font-semibold sm:text-3xl">Cab options for every travel need</h2>
 
       {/* Grid — negative margin on mobile to go edge-to-edge, gap-0 on mobile */}
-      <div className="mt-6 -mx-4 grid grid-cols-2 gap-px bg-zinc-100 sm:mx-0 sm:gap-4 sm:rounded-none sm:bg-transparent lg:grid-cols-2">
+      <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-2">
         {services.map((service, index) => {
           const meta = serviceMeta[service.title];
           if (!meta) return null;
@@ -137,38 +137,38 @@ export function ServiceCards() {
             <SectionReveal
               key={service.title}
               delay={index * 0.07}
-              className="flex flex-col bg-white p-4 sm:rounded-[1.75rem] sm:border sm:border-zinc-200 sm:p-6 sm:shadow-soft"
+              className="flex min-w-0 flex-col rounded-[1.35rem] border border-zinc-200 bg-white p-3 shadow-soft sm:rounded-[1.75rem] sm:p-6"
             >
               {/* Top row: badge + illustration */}
-              <div className="flex items-start justify-between gap-2">
+              <div className="flex items-start justify-between gap-3">
                 <div className="flex-1">
                   {meta.badge && (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-[10px] font-bold text-amber-700 ring-1 ring-amber-200 sm:text-xs">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-1 text-[9px] font-bold text-amber-700 ring-1 ring-amber-200 sm:px-2.5 sm:text-xs">
                       {meta.badge.icon} {meta.badge.label}
                     </span>
                   )}
-                  <h3 className="mt-2 font-display text-base font-bold text-zinc-950 sm:text-xl">{service.title}</h3>
-                  {meta.price && <p className="mt-0.5 text-xs text-zinc-500 sm:text-sm">{meta.price}</p>}
+                  <h3 className="mt-2 font-display text-sm font-bold leading-snug text-zinc-950 sm:text-xl">{service.title}</h3>
+                  {meta.price && <p className="mt-0.5 text-[10px] leading-4 text-zinc-500 sm:text-sm">{meta.price}</p>}
                 </div>
-                <div className="shrink-0">{meta.illustration}</div>
+                <div className="hidden shrink-0 sm:block">{meta.illustration}</div>
               </div>
 
               {/* Divider */}
-              <div className="my-3 border-t border-zinc-100" />
+              <div className="my-2.5 border-t border-zinc-100 sm:my-3" />
 
               {/* Features + stats */}
-              <div className="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-y-2 gap-x-4 sm:grid-cols-2">
                 <ul className="space-y-1.5">
                   {meta.features.map((f) => (
-                    <li key={f} className="flex items-start gap-1.5 text-[11px] text-zinc-600 sm:text-sm">
+                    <li key={f} className="flex items-start gap-1.5 text-[10px] leading-4 text-zinc-600 sm:text-sm">
                       <span className="mt-0.5 text-brand-500">✓</span> {f}
                     </li>
                   ))}
                 </ul>
                 {meta.stats && (
-                  <ul className="mt-2 space-y-1.5 sm:mt-0">
+                  <ul className="space-y-1.5">
                     {meta.stats.map((s) => (
-                      <li key={s.label} className="flex items-center gap-1.5 text-[11px] text-zinc-600 sm:text-sm">
+                      <li key={s.label} className="flex items-center gap-1.5 text-[10px] leading-4 text-zinc-600 sm:text-sm">
                         <span className="text-brand-500">{s.icon}</span> {s.label}
                       </li>
                     ))}
@@ -177,10 +177,10 @@ export function ServiceCards() {
               </div>
 
               {/* CTAs */}
-              <div className="mt-4 flex flex-wrap gap-2">
+              <div className="mt-3 grid grid-cols-1 gap-1.5 sm:mt-4 sm:flex sm:flex-row sm:flex-wrap sm:gap-2">
                 <Link
                   href="/booking"
-                  className="inline-flex items-center gap-1 rounded-full bg-brand-500 px-3 py-2 text-[11px] font-bold text-white hover:bg-brand-600 sm:px-4 sm:text-sm"
+                  className="inline-flex min-h-9 items-center justify-center gap-1 rounded-full bg-brand-500 px-2.5 py-2 text-center text-[10px] font-bold leading-none text-white hover:bg-brand-600 sm:min-h-11 sm:px-4 sm:py-2.5 sm:text-sm"
                 >
                   {meta.bookLabel} <span>›</span>
                 </Link>
@@ -188,7 +188,7 @@ export function ServiceCards() {
                   href={waMsg(service.title)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-full border border-zinc-200 bg-white px-3 py-2 text-[11px] font-semibold text-zinc-700 hover:border-brand-400 sm:px-4 sm:text-sm"
+                  className="inline-flex min-h-9 items-center justify-center rounded-full border border-zinc-200 bg-white px-2.5 py-2 text-center text-[10px] font-semibold leading-none text-zinc-700 hover:border-brand-400 sm:min-h-11 sm:px-4 sm:py-2.5 sm:text-sm"
                 >
                   Get Price on WhatsApp
                 </a>

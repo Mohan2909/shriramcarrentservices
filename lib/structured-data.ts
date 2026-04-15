@@ -155,7 +155,7 @@ function getLocationFaqSchema(location: LocationEntry) {
       name: `Do you offer cab service near me in ${location.name}?`,
       acceptedAnswer: {
         "@type": "Answer",
-        text: `Yes. Shriram Tour & Travels provides cab service in ${location.name} and nearby areas including ${nearby}. Book via WhatsApp or the online form for same-day and advance trips.`,
+        text: `Yes. Shriram Tour And Travel, Cab Service provides cab service in ${location.name} and nearby areas including ${nearby}. Book via WhatsApp or the online form for same-day and advance trips.`,
       },
     },
     {

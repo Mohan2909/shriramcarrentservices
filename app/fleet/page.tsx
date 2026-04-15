@@ -9,7 +9,7 @@ import { buildAbsoluteUrl, buildMetadata } from "@/lib/metadata";
 import { buildBreadcrumbStructuredData } from "@/lib/structured-data";
 
 export const metadata = buildMetadata({
-  title: "Fleet | Shriram Tour & Travels",
+  title: "Fleet | Shriram Tour And Travel, Cab Service",
   description: "Explore Swift Dzire, Hyundai Aura, Ertiga, Kia Carens, and Innova Crysta for Pune cab bookings.",
   path: "/fleet",
   keywords: ["cab fleet pune", "innova crysta pune", "ertiga cab pune"],
@@ -69,6 +69,16 @@ export default function FleetPage() {
                     <span className="shrink-0 rounded-full bg-brand-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-brand-700">{car.seats}</span>
                   </div>
                   <p className="mt-4 text-sm leading-7 text-zinc-600">{car.blurb}</p>
+                  {car.details?.length ? (
+                    <ul className="mt-4 space-y-2 text-sm text-zinc-600">
+                      {car.details.map((detail) => (
+                        <li key={detail} className="flex items-start gap-2">
+                          <span className="mt-1 block h-2.5 w-2.5 rounded-full bg-brand-500" />
+                          <span>{detail}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
                   <Link href="/booking" className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-600 sm:w-auto">Book this car</Link>
                 </div>
               </SectionReveal>

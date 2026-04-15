@@ -12,6 +12,7 @@ html {
 
 body {
   @apply bg-sand font-body text-ink antialiased;
+  overflow-x: hidden;
   background-image: radial-gradient(circle at top left, rgba(250, 204, 21, 0.16), transparent 18%), linear-gradient(180deg, #fffaf2 0%, #ffffff 35%, #fff8ee 100%);
 }
 
@@ -41,6 +42,27 @@ body {
   }
   .row-scroll::-webkit-scrollbar { display: none; }
   .row-scroll > * { scroll-snap-align: start; }
+
+  .row-inline {
+    display: flex;
+    max-width: 100%;
+    min-width: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .row-inline::-webkit-scrollbar { display: none; }
+  .row-inline > * { flex-shrink: 0; }
+
+  @media (min-width: 640px) {
+    .row-inline {
+      flex-wrap: wrap;
+      overflow: visible;
+    }
+  }
 
   /* ── scroll-track ───────────────────────────────────────────── */
   /* Wrapper that adds left/right gradient fade-edge indicators.  */

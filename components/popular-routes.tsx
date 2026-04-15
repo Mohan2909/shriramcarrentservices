@@ -11,12 +11,15 @@ const routeMeta: Record<string, {
   badge?: string;
   featured?: boolean;
 }> = {
-  "Pune to Mumbai": { duration: "~ 3.5 hrs", distance: "150 km", fare: "₹2,499", badge: "Most Booked", featured: true },
+  "Pune to Mumbai": { duration: "~ 3.5 hrs", distance: "150 km", fare: "Starting from ₹3,300", badge: "Most Booked", featured: true },
   "Pune to Shirdi": { duration: "~ 3 hrs", distance: "185 km", fare: "₹3,999", badge: "Pune to Shirdi", featured: true },
   "Pune to Nashik": { duration: "~ 5 hrs", distance: "210 km", fare: "Starting ₹4,999" },
   "Pune to Kolhapur": { duration: "~ 4 hrs", distance: "290 km", fare: "Starting ₹5,299" },
-  "Wakad to Pune Airport": { duration: "~ 40 min", distance: "Airport drop", fare: "₹900 Fixed Fare" },
-  "Hinjewadi to Pune Airport": { duration: "~ 30 min", distance: "Airport drop", fare: "₹800 Fixed Fare" },
+  "Mumbai Airport": { duration: "~ 4.5 hrs", distance: "Pune to Mumbai airport", fare: "Starting ₹2,700 + toll" },
+  "Mumbai Darshan": { duration: "~ 5 hrs", distance: "Pune to Mumbai sightseeing", fare: "Starting ₹3,999 + toll" },
+  "Wakad to Pune Airport": { duration: "~ 40 min", distance: "Airport drop", fare: "Starting from ₹2,000 Fixed Fare" },
+  "Pune Local 4 Seater": { duration: "Local Pune cab", distance: "4 seater", fare: "Starting ₹2,000 Fixed Fare" },
+  "Pune Local 7 Seater": { duration: "Local Pune cab", distance: "7 seater", fare: "Starting ₹3,000 Fixed Fare" },
 };
 
 function getIcon(route: string) {
@@ -37,7 +40,7 @@ export function PopularRoutes() {
     <div className="overflow-hidden rounded-[2rem] border border-zinc-200/80 bg-white/90 shadow-soft">
       {/* Header banner */}
       <div className="relative overflow-hidden bg-[linear-gradient(100deg,#1c1b20_55%,#3b1a08_100%)] px-5 py-7 sm:px-8 sm:py-9">
-        <div className="pointer-events-none absolute inset-0 bg-[url('/images/swift-dzire.svg')] bg-right bg-no-repeat opacity-[0.06]" />
+        <div className="pointer-events-none absolute inset-0 bg-[url('/images/dezire.jpg')] bg-right bg-no-repeat bg-contain opacity-[0.06]" />
         <div className="relative grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.28em] text-amber-400">Popular Routes</p>
@@ -51,7 +54,7 @@ export function PopularRoutes() {
             </ul>
           </div>
           {/* Filter tabs */}
-          <div className="flex flex-wrap gap-2">
+          <div className="row-inline gap-2 lg:justify-end">
             {["All Routes", "Airport Trips", "Outstation Rides"].map((tab, i) => (
               <span
                 key={tab}
@@ -96,7 +99,7 @@ export function PopularRoutes() {
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-wrap items-center gap-2 border-t border-zinc-100 px-4 py-3 sm:px-5">
+                <div className="row-inline items-center gap-2 border-t border-zinc-100 px-4 py-3 sm:px-5">
                   <Link
                     href="/booking"
                     className="rounded-full bg-brand-500 px-4 py-2 text-xs font-semibold text-white hover:bg-brand-600"
@@ -111,7 +114,7 @@ export function PopularRoutes() {
                   >
                     <MessageCircle className="h-3.5 w-3.5 text-green-500" /> Get Quote on WhatsApp
                   </a>
-                  <ArrowUpRight className="ml-auto h-4 w-4 text-zinc-400" />
+                  <ArrowUpRight className="ml-auto hidden h-4 w-4 shrink-0 text-zinc-400 sm:block" />
                 </div>
               </div>
             );
@@ -147,7 +150,7 @@ export function PopularRoutes() {
         </div>
 
         {/* Footer */}
-        <div className="mt-5 flex items-center justify-between">
+        <div className="mt-5 row-inline items-center justify-between gap-3">
           <div className="flex gap-1.5">
             {[0, 1, 2, 3, 4].map((i) => (
               <span key={i} className={`h-2 rounded-full ${i === 3 ? "w-5 bg-brand-500" : "w-2 bg-zinc-200"}`} />
@@ -155,7 +158,7 @@ export function PopularRoutes() {
           </div>
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-600"
+            className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-brand-500 px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-600"
           >
             View All Routes <ArrowUpRight className="h-4 w-4" />
           </Link>

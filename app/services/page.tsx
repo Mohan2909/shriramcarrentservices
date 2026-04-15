@@ -10,7 +10,7 @@ import { buildAbsoluteUrl, buildMetadata } from "@/lib/metadata";
 import { buildBreadcrumbStructuredData } from "@/lib/structured-data";
 
 export const metadata = buildMetadata({
-  title: "Services | Shriram Tour & Travels",
+  title: "Services | Shriram Tour And Travel, Cab Service",
   description: "Book outstation cab, airport transfer, one-way trip, round trip, and corporate travel in Pune.",
   path: "/services",
   keywords: ["outstation cab pune", "airport transfer pune", "corporate cab pune"],

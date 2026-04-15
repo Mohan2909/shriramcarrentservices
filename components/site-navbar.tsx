@@ -18,15 +18,15 @@ export function SiteNavbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-200/70 bg-white/90 backdrop-blur-xl">
       <Container className="py-3 sm:py-4">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-start justify-between gap-3 sm:items-center sm:gap-4">
 
           {/* Logo + name */}
-          <Link href="/" className="flex min-w-0 items-center gap-3">
-            <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-2xl border border-brand-100 bg-white p-1.5 shadow-sm sm:h-14 sm:w-14">
-              <Image src="/images/applog.png" alt={`${SITE_NAME} logo`} fill className="object-contain p-1" sizes="56px" priority />
+          <Link href="/" className="flex min-w-0 flex-1 items-center gap-3">
+            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl border border-brand-200/80 bg-gradient-to-br from-white via-orange-50 to-amber-50 shadow-[0_10px_24px_rgba(249,115,22,0.12)] sm:h-16 sm:w-16">
+              <Image src="/images/applogo2.png" alt={`${SITE_NAME} logo`} fill className="object-contain" sizes="(min-width: 640px) 64px, 56px" priority />
             </div>
-            <div className="min-w-0">
-              <span className="block truncate font-display text-base font-bold text-ink sm:text-lg">{SITE_NAME}</span>
+            <div className="min-w-0 flex-1">
+              <span className="block text-sm font-bold leading-tight text-ink sm:font-display sm:text-lg">{SITE_NAME}</span>
               <span className="hidden text-xs text-zinc-500 sm:block">Cab service across Pune</span>
             </div>
           </Link>
@@ -43,7 +43,7 @@ export function SiteNavbar() {
           {/* Call Now CTA */}
           <a
             href={`tel:+${contactDetails.phoneRaw}`}
-            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-600 sm:px-5"
+            className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-brand-500 px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-600 sm:px-5"
           >
             <PhoneCall className="h-4 w-4" />
             <span>Call Now</span>

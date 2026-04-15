@@ -45,41 +45,41 @@ export default function ContactPage() {
 
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
 
-            <SectionReveal className="rounded-[2rem] border border-zinc-200 bg-white p-6 shadow-soft lg:p-8">
-              <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Contact</p>
-              <h1 className="mt-2 font-display text-2xl font-semibold sm:text-4xl">Get in touch for direct cab booking</h1>
-              <div className="mt-6 space-y-4 text-sm leading-8 text-zinc-600 sm:mt-8 sm:space-y-5">
-                <div>
-                  <h2 className="font-semibold text-zinc-900">Owner</h2>
-                  <p>{contactDetails.ownerName}</p>
-                </div>
-                <div>
-                  <h2 className="font-semibold text-zinc-900">Address</h2>
-                  <p>{contactDetails.address}</p>
-                </div>
-                {/* Contact rows — always label + value side by side */}
-                <div className="row-inline items-center justify-between gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
-                  <h2 className="font-semibold text-zinc-900">Phone</h2>
-                  <a href={`tel:+${contactDetails.phoneRaw}`} className="whitespace-nowrap text-sm transition hover:text-brand-600">{contactDetails.phoneDisplay}</a>
-                </div>
-                <div className="row-inline items-center justify-between gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
-                  <h2 className="font-semibold text-zinc-900">Alternate Phone</h2>
-                  <a href={`tel:+${contactDetails.secondaryPhoneRaw}`} className="whitespace-nowrap text-sm transition hover:text-brand-600">{contactDetails.secondaryPhoneDisplay}</a>
-                </div>
-                <div className="row-inline items-center justify-between gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
-                  <h2 className="font-semibold text-zinc-900">WhatsApp</h2>
-                  <a href={`https://wa.me/${contactDetails.whatsappRaw}`} target="_blank" rel="noreferrer" className="whitespace-nowrap text-sm transition hover:text-brand-600">Start WhatsApp Chat</a>
-                </div>
-                <div className="row-inline items-center justify-between gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3">
-                  <h2 className="font-semibold text-zinc-900">Email</h2>
-                  <a href={`mailto:${contactDetails.email}`} className="whitespace-nowrap text-sm transition hover:text-brand-600">{contactDetails.email}</a>
-                </div>
+          <SectionReveal className="rounded-[2rem] border border-zinc-200 bg-white p-5 shadow-soft sm:p-6 lg:p-8">
+            <p className="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Contact</p>
+            <h1 className="mt-2 font-display text-2xl font-semibold leading-tight sm:text-4xl">Get in touch for direct cab booking</h1>
+            <div className="mt-6 space-y-4 text-sm leading-7 text-zinc-600 sm:mt-8 sm:space-y-5 sm:text-base sm:leading-8">
+              <div>
+                <h2 className="font-semibold text-zinc-900">Owner</h2>
+                <p>{contactDetails.ownerName}</p>
               </div>
-            </SectionReveal>
+              <div>
+                <h2 className="font-semibold text-zinc-900">Address</h2>
+                <p>{contactDetails.address}</p>
+              </div>
 
-            <SectionReveal delay={0.08}>
-              <GoogleMap query={contactDetails.address} title="Shriram Tour And Travel, Cab Service address map" />
-            </SectionReveal>
+              <div className="flex flex-col gap-1 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                <h2 className="font-semibold text-zinc-900">Phone</h2>
+                <a href={`tel:+${contactDetails.phoneRaw}`} className="break-all text-sm transition hover:text-brand-600 sm:text-right">{contactDetails.phoneDisplay}</a>
+              </div>
+              <div className="flex flex-col gap-1 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                <h2 className="font-semibold text-zinc-900">Alternate Phone</h2>
+                <a href={`tel:+${contactDetails.secondaryPhoneRaw}`} className="break-all text-sm transition hover:text-brand-600 sm:text-right">{contactDetails.secondaryPhoneDisplay}</a>
+              </div>
+              <div className="flex flex-col gap-1 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                <h2 className="font-semibold text-zinc-900">WhatsApp</h2>
+                <a href={`https://wa.me/${contactDetails.whatsappRaw}`} target="_blank" rel="noreferrer" className="text-sm transition hover:text-brand-600 sm:text-right">Start WhatsApp Chat</a>
+              </div>
+              <div className="flex flex-col gap-1 rounded-2xl border border-zinc-200 bg-zinc-50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                <h2 className="font-semibold text-zinc-900">Email</h2>
+                <a href={`mailto:${contactDetails.email}`} className="break-all text-sm transition hover:text-brand-600 sm:text-right">{contactDetails.email}</a>
+              </div>
+            </div>
+          </SectionReveal>
+
+          <SectionReveal delay={0.08}>
+            <GoogleMap query={contactDetails.address} title="Shriram Tour And Travel, Cab Service address map" />
+          </SectionReveal>
 
         </div>
       </Container>

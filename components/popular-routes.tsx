@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Flame, Landmark, MapPin, MapPinned, MessageCircle, Plane, Route } from "lucide-react";
 import { contactDetails, popularRoutes } from "@/data/site";
@@ -12,14 +13,32 @@ const routeMeta: Record<string, {
   featured?: boolean;
 }> = {
   "Pune to Mumbai": { duration: "~ 3.5 hrs", distance: "150 km", fare: "Starting from ₹3,300", badge: "Most Booked", featured: true },
-  "Pune to Shirdi": { duration: "~ 3 hrs", distance: "185 km", fare: "₹3,999", badge: "Pune to Shirdi", featured: true },
+  "Pune to Shirdi": { duration: "~ 3 hrs", distance: "185 km", fare: "₹3,999" },
   "Pune to Nashik": { duration: "~ 5 hrs", distance: "210 km", fare: "Starting ₹4,999" },
   "Pune to Kolhapur": { duration: "~ 4 hrs", distance: "290 km", fare: "Starting ₹5,299" },
+  "Pune to Goa": { duration: "4 days 3 night package", distance: "", fare: "Starting from ₹14,500", badge: "Pune to Goa", featured: true },
   "Mumbai Airport": { duration: "~ 4.5 hrs", distance: "Pune to Mumbai airport", fare: "Starting ₹2,700 + toll" },
   "Mumbai Darshan": { duration: "~ 5 hrs", distance: "Pune to Mumbai sightseeing", fare: "Starting ₹3,999 + toll" },
   "Wakad to Pune Airport": { duration: "~ 40 min", distance: "Airport drop", fare: "Starting from ₹2,000 Fixed Fare" },
-  "Pune Local 4 Seater": { duration: "Local Pune cab", distance: "4 seater", fare: "Starting ₹2,000 Fixed Fare" },
+  "Pune Local 5 Seater": { duration: "Local Pune cab", distance: "5 seater", fare: "Starting ₹2,000 Fixed Fare" },
   "Pune Local 7 Seater": { duration: "Local Pune cab", distance: "7 seater", fare: "Starting ₹3,000 Fixed Fare" },
+};
+
+const featuredRouteBackgrounds: Record<string, {
+  image: string;
+  imagePosition: string;
+  tintClassName: string;
+}> = {
+  "Pune to Mumbai": {
+    image: "/images/mumbai.jpg",
+    imagePosition: "center center",
+    tintClassName: "from-amber-100/70 via-white/20 to-orange-200/20",
+  },
+  "Pune to Goa": {
+    image: "/images/Goa.webp",
+    imagePosition: "center center",
+    tintClassName: "from-emerald-100/70 via-white/20 to-sky-200/30",
+  },
 };
 
 function getIcon(route: string) {
@@ -80,26 +99,43 @@ export function PopularRoutes() {
           {featured.map((route) => {
             const meta = routeMeta[route]!;
             const Icon = getIcon(route);
+            const background = featuredRouteBackgrounds[route];
             return (
-              <div key={route} className="overflow-hidden rounded-[1.5rem] border border-zinc-200 bg-gradient-to-br from-amber-50 to-white shadow-sm">
-                <div className="p-4 sm:p-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      {meta.badge && (
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-[11px] font-bold text-amber-700">
-                          <Flame className="h-3 w-3" /> {meta.badge}
-                        </span>
-                      )}
-                      <h3 className="mt-2 font-display text-xl font-semibold text-zinc-950 sm:text-2xl">{route}</h3>
-                      <p className="mt-1 text-sm font-semibold text-zinc-700">Starting from {meta.fare}</p>
-                      <p className="mt-1 text-xs text-zinc-500">{meta.duration} · {meta.distance}</p>
-                    </div>
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white shadow-sm text-brand-600">
-                      <Icon className="h-4 w-4" />
+              <div key={route} className="overflow-hidden rounded-[1.5rem] border border-zinc-200 bg-white shadow-sm">
+                <div className="grid gap-4 border-b border-zinc-100 p-4 sm:grid-cols-[minmax(0,1fr)_210px] sm:items-stretch sm:gap-5 sm:p-5">
+                  <div className="flex min-w-0 flex-col justify-between">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        {meta.badge && (
+                          <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-[11px] font-bold text-amber-700">
+                            <Flame className="h-3 w-3" /> {meta.badge}
+                          </span>
+                        )}
+                        <h3 className="mt-3 font-display text-xl font-semibold text-zinc-950 sm:text-2xl">{route}</h3>
+                        <p className="mt-2 text-sm font-semibold text-zinc-700">{meta.fare}</p>
+                        <p className="mt-1 text-xs text-zinc-500">{meta.duration} · {meta.distance}</p>
+                      </div>
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-zinc-200 bg-white shadow-sm text-brand-600">
+                        <Icon className="h-4 w-4" />
+                      </div>
                     </div>
                   </div>
+                  {background ? (
+                    <div className="relative min-h-[180px] overflow-hidden rounded-[1.25rem] border border-zinc-200 bg-zinc-100">
+                      <Image
+                        src={background.image}
+                        alt={route}
+                        fill
+                        className="object-cover"
+                        style={{ objectPosition: background.imagePosition }}
+                        sizes="(max-width: 640px) 100vw, 210px"
+                      />
+                      <div className={`absolute inset-0 bg-gradient-to-br ${background.tintClassName}`} />
+                      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
+                    </div>
+                  ) : null}
                 </div>
-                <div className="row-inline items-center gap-2 border-t border-zinc-100 px-4 py-3 sm:px-5">
+                <div className="row-inline items-center gap-2 px-4 py-3 sm:px-5">
                   <Link
                     href="/booking"
                     className="rounded-full bg-brand-500 px-4 py-2 text-xs font-semibold text-white hover:bg-brand-600"

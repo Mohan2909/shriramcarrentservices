@@ -59,28 +59,6 @@ export function SiteFooter() {
                   </a>
                 </div>
               </div>
-
-              <div>
-                <h4 className="font-semibold text-white">Terms & Conditions</h4>
-                <ul className="mt-3 space-y-2 text-sm text-zinc-300">
-                  {[
-                    "Minimum 300 km/day charged",
-                    "Toll & Parking extra",
-                    "Driver food extra",
-                    "5 Seater: 300 after 11 PM",
-                    "7 Seater: 500 after 11 PM",
-                    "After 3 AM: Next day rent",
-                    "If food not provided, customer pays driver",
-                    "Charges vary by vehicle",
-                  ].map((term) => (
-                    <li key={term} className="flex gap-2">
-                      <span className="text-accent-300">•</span>
-                      <span>{term}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
             </div>
           </div>
 
@@ -109,6 +87,27 @@ export function SiteFooter() {
             </div>
           </div>
 
+        </div>
+
+        <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-6">
+          <h3 className="font-display text-lg font-semibold text-white">Terms & Conditions</h3>
+          <ul className="mt-4 grid gap-2 text-sm text-zinc-300 sm:grid-cols-2">
+            {[
+              "Minimum 300 km/day charged",
+              "Toll & Parking extra",
+              "Driver food extra",
+              "5 Seater: 300 after 11 PM",
+              "7 Seater: 500 after 11 PM",
+              "After 3 AM: Next day rent",
+              "If food not provided, customer pays driver",
+              "Charges vary by vehicle",
+            ].map((term) => (
+              <li key={term} className="flex gap-2">
+                <span className="text-accent-300">•</span>
+                <span>{term}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Bottom bar */}

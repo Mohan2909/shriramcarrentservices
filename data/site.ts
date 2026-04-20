@@ -69,14 +69,14 @@ type FleetEntry = {
 export const fleet: FleetEntry[] = [
   {
     name: "Swift Dzire",
-    seats: "4 seater",
+    seats: "5 seater",
     image: "/images/dezire.jpg",
     blurb: "Compact sedan for local rides, airport transfers, and affordable outstation trips.",
     details: ["Starting from ₹11 / km"],
   },
   {
     name: "Hyundai Aura",
-    seats: "4 seater",
+    seats: "5 seater",
     image: "/images/aura.avif",
     blurb: "Balanced comfort and efficiency for city travel and executive pickup schedules.",
     details: ["Starting from ₹11 / km"],
@@ -104,14 +104,14 @@ export const fleet: FleetEntry[] = [
     seats: "6-7 seater",
     image: "/images/kia.avif",
     blurb: "Premium MPV ride quality for longer routes and polished airport transfers.",
-    details: ["Starting from ₹14 / km"],
+    details: ["Starting from ₹16 / km"],
   },
   {
     name: "Innova Crysta",
     seats: "7-8 seater",
     image: "/images/innova.avif",
     blurb: "Flagship option for corporate mobility, group bookings, and comfort-first outstation rides.",
-    details: ["Starting from ₹14 / km"],
+    details: ["Starting from ₹20 / km"],
   },
 ];
 
@@ -136,13 +136,14 @@ export const services = [
 
 export const popularRoutes = [
   "Pune to Mumbai",
-  "Pune to Shirdi",
+  "Pune to Goa",
   "Pune to Nashik",
   "Pune to Kolhapur",
+  "Pune to Shirdi",
   "Mumbai Airport",
   "Mumbai Darshan",
   "Wakad to Pune Airport",
-  "Pune Local 4 Seater",
+  "Pune Local 5 Seater",
   "Pune Local 7 Seater",
 ];
 

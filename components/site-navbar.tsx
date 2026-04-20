@@ -23,7 +23,7 @@ export function SiteNavbar() {
           {/* Logo + name */}
           <Link href="/" className="flex min-w-0 flex-1 items-center gap-3">
             <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-2xl border border-brand-200/80 bg-gradient-to-br from-white via-orange-50 to-amber-50 shadow-[0_10px_24px_rgba(249,115,22,0.12)] sm:h-16 sm:w-16">
-              <Image src="/images/applogo2.png" alt={`${SITE_NAME} logo`} fill className="object-contain" sizes="(min-width: 640px) 64px, 56px" priority />
+              <Image src="/images/applog.png" alt={`${SITE_NAME} logo`} fill className="object-contain" sizes="(min-width: 640px) 64px, 56px" priority />
             </div>
             <div className="min-w-0 flex-1">
               <span className="block text-sm font-bold leading-tight text-ink sm:font-display sm:text-lg">{SITE_NAME}</span>
